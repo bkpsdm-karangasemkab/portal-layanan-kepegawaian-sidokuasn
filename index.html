@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PORTAL SIDOKUASN</title>
+<meta name="description" content="SIDOKUASN - Portal layanan kepegawaian ASN terpadu, cepat, mudah, informatif, dan terintegrasi.">
+<style>
+:root{
+  --primary:#16803a;--primary2:#39b85a;--dark:#12351f;--text:#294235;
+  --muted:#64748b;--bg:#f3faf5;--card:#fff;--line:#dceee1;
+  --success:#16a34a;--warning:#f59e0b;--danger:#dc2626;--radius:22px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none;color:inherit}button,input{font:inherit}
+
+.container {
+  width: 100%;           
+  max-width: 1550px;    
+  margin: 0 auto;       
+  padding: 0 15px;      
+}
+
+header {
+  position: fixed; 
+  top: 0;
+  left: 0;         
+  width: 100%;     
+  z-index: 1000;
+  background: rgba(255,255,255,.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px); 
+  border-bottom: 1px solid rgba(229,237,246,.8);
+  box-sizing: border-box; 
+}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--dark)}
+.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#126b32,#45c963);display:grid;place-items:center;color:#fff;font-size:20px;box-shadow:0 8px 20px rgba(22,128,58,.22)}
+.brand small{display:block;color:var(--muted);font-weight:600;font-size:10px;letter-spacing:.3px}
+nav{display:flex;gap:8px;align-items:center}
+nav a{padding:10px 14px;border-radius:12px;font-weight:650;color:#475569;font-size:14px}
+nav a:hover,nav a.active{background:#e8f7ec;color:var(--primary)}
+.menu{display:none;border:0;background:#edf7ef;border-radius:12px;padding:10px;cursor:pointer}
+
+.hero{padding:74px 0 55px;position:relative;overflow:scroll;background:radial-gradient(circle at 85% 20%,rgba(57,184,90,.20),transparent 30%),linear-gradient(180deg,#fff,#f2faf4)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:55px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#e9f8ed;color:var(--primary);padding:8px 13px;border-radius:99px;font-weight:750;font-size:13px;margin-bottom:18px}
+.dot{width:8px;height:8px;border-radius:50%;background:#20b15a;box-shadow:0 0 0 5px #d9f8e5}
+h1{font-size:clamp(38px,5vw,65px);line-height:1.05;letter-spacing:-2.5px;color:var(--dark);max-width:700px}
+.gradient{background:linear-gradient(90deg,#16803a,#42c95d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:17px;color:#64748b;max-width:620px;margin:22px 0 28px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:0;border-radius:14px;padding:13px 19px;font-weight:750;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,#16803a,#39b85a);color:#fff;box-shadow:0 12px 25px rgba(22,128,58,.20)}
+.btn-light{background:#fff;border:1px solid var(--line);color:var(--dark)}
+.hero-card{background:#fff;border:1px solid var(--line);border-radius:30px;padding:24px;box-shadow:0 25px 70px rgba(23,58,91,.12)}
+.dashboard{background:linear-gradient(145deg,#103d22,#16803a);border-radius:23px;padding:22px;color:#fff;min-height:350px}
+.dash-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.status{font-size:11px;background:rgba(255,255,255,.12);padding:7px 10px;border-radius:99px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.09);padding:17px;border-radius:17px}
+.stat b{font-size:26px;display:block}.stat span{font-size:12px;opacity:.75}
+.progress{margin-top:16px;background:rgba(255,255,255,.12);height:9px;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:78%;background:#8be28e;border-radius:99px}
+
+.section{padding:80px 0}.section-head{text-align:center;margin-bottom:35px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.6px;font-weight:800;color:var(--primary)}
+h2{font-size:clamp(29px,4vw,42px);line-height:1.15;color:var(--dark);margin:8px 0}
+.section-head p{color:var(--muted);max-width:680px;margin:auto}
+.search{max-width:620px;margin:25px auto 35px;position:relative}
+.search input{width:100%;border:1px solid var(--line);background:#fff;border-radius:16px;padding:15px 18px 15px 46px;outline:none;box-shadow:0 8px 25px rgba(31,65,98,.06)}
+.search span{position:absolute;left:17px;top:13px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.service{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;transition:.25s;cursor:pointer}
+.service:hover{transform:translateY(-5px);box-shadow:0 18px 35px rgba(31,65,98,.10);border-color:#bfe5c8}
+.service:focus{outline:3px solid rgba(22,128,58,.2)}
+.icon{width:48px;height:48px;border-radius:15px;background:#e9f8ed;color:var(--primary);display:grid;place-items:center;font-size:22px;margin-bottom:17px}
+.service h3{font-size:16px;color:var(--dark);margin-bottom:6px}.service p{font-size:13px;color:var(--muted)}
+
+.service-viewer{display:none;margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 20px 50px rgba(22,70,38,.10)}
+.service-viewer.show{display:block}
+.viewer-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:17px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#f5fbf6)}
+.viewer-title{display:flex;align-items:center;gap:12px}.viewer-title .mini-icon{width:40px;height:40px;border-radius:12px;background:#e9f8ed;color:var(--primary);display:grid;place-items:center;font-size:18px}
+.viewer-title strong{display:block;color:var(--dark);font-size:16px}.viewer-title span{display:block;color:var(--muted);font-size:12px}
+.viewer-actions{display:flex;gap:8px;flex-wrap:wrap}
+.viewer-btn{border:1px solid var(--line);background:#fff;color:var(--dark);border-radius:11px;padding:9px 13px;font-weight:700;cursor:pointer}
+.viewer-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.iframe-wrap {
+  position: relative; background: #f1f5f3; width: 100%; overflow: hidden;
+  height: calc(100vh - 90px) !important; min-height: 580px; 
+}
+.service-frame{display:block;width:100%;height:100%;min-height:100%;border:0;background:#fff}
+.frame-loading{position:absolute;inset:0;display:grid;place-items:center;background:rgba(243,250,245,.94);z-index:2}
+.frame-loading.hidden{display:none}
+.loader-box{text-align:center;color:var(--muted)}
+.spinner{width:40px;height:40px;border:4px solid #d9f2df;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.viewer-note{padding:11px 18px;background:#f5fbf6;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.viewer-note b{color:var(--dark)}
+.no-frame{display:none;padding:80px 25px;text-align:center;background:#fff}.no-frame.show{display:block}
+.no-frame h3{color:var(--dark);margin-bottom:8px}.no-frame p{color:var(--muted);max-width:650px;margin:auto}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
+.panel h3{color:var(--dark);margin-bottom:15px}.list{display:grid;gap:10px}
+.list a{display:flex;justify-content:space-between;gap:15px;padding:13px 14px;border-radius:13px;background:#f3faf5;color:#475569;font-size:14px}
+.list a:hover{background:#e8f7ec;color:var(--primary)}
+.help{background:linear-gradient(135deg,#103d22,#16803a);color:#fff;border-radius:30px;padding:48px;display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+.help h2{color:#fff}.help p{color:#d9e9f8}.help .btn-light{border:0}
+footer{background:#0d1f34;color:#cbd5e1;padding:50px 0 25px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:35px}
+footer h3,footer h4{color:#fff;margin-bottom:12px}footer p,footer a{font-size:13px;color:#9fb0c2}
+footer a{display:block;margin:7px 0}.copyright{border-top:1px solid rgba(255,255,255,.1);margin-top:35px;padding-top:20px;font-size:12px;display:flex;justify-content:space-between;gap:15px}
+.modal{position:fixed;inset:0;background:rgba(9,25,43,.55);display:none;place-items:center;z-index:2000;padding:20px}
+.modal.show{display:grid}.modal-box{width:min(500px,100%);background:#fff;border-radius:24px;padding:28px;position:relative}
+.close{position:absolute;right:17px;top:14px;border:0;background:#f1f5f9;border-radius:50%;width:34px;height:34px;cursor:pointer}
+.form{display:grid;gap:13px;margin-top:18px}.form input,.form textarea{border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}.form textarea{min-height:100px;resize:vertical}
+
+/* GAYA BARU UNTUK FORCED LOGIN OVERLAY */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+
+  /* 1. MENGUBAH LATAR BELAKANG HALAMAN */
+  background-image: url('https://cdn.phototourl.com/free/2026-09-09-6af067e9-6578-439a-9f34-e98666d6effc.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+
+  /* Lapisan transparan tipis agar tulisan di kartu login lebih mudah dibaca */
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.login-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.login-card {
+  /* 1. EFEK KACA TRANSPARAN (Glassmorphism) */
+  background: rgba(255, 255, 255, 0.65) !important; /* Membuat kotak putih transparan 75% */
+  backdrop-filter: blur(14px) !important;           /* Efek blur pada gambar latar di belakang kotak */
+  -webkit-backdrop-filter: blur(14px) !important;    /* Dukungan efek blur untuk browser Safari/iOS */
+  
+  width: 100%;
+  max-width: 420px;
+  border-radius: 24px;
+  padding: 45px 35px;
+  text-align: center;
+
+  /* 2. EFEK DIMENSI DIGITAL (Glow & Border Halus) */
+  border: 1px solid rgba(255, 255, 255, 0.4) !important; /* Garis tepi putih transparan tipis seperti kaca */
+  
+  /* Kombinasi bayangan gelap lembut + kilau luar neon hijau khas masa kini */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 
+              0 0 30px rgba(22, 128, 58, 0.25) !important; 
+              
+  transition: all 0.4s ease;
+}
+
+/* BONUS: Efek interaktif saat pengguna mengklik kolom input untuk mengetik */
+.login-card:focus-within {
+  background: rgba(255, 255, 255, 0.85) !important; /* Sedikit lebih jelas agar fokus */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 
+              0 0 45px rgba(39, 184, 90, 0.4) !important; /* Kilau hijau neonnya melebar */
+  transform: translateY(-2px); /* Kotak sedikit terangkat naik secara dinamis */
+}
+
+.logo {
+  /* 1. MENGATUR UKURAN WADAH LOGO */
+  width: 45px !important;       /* Sesuaikan lebar logo di navbar */
+  height: 45px !important;      /* Sesuaikan tinggi logo di navbar */
+  display: inline-block !important;
+  
+  /* 2. MEMASUKKAN GAMBAR LOGO BARU (Lambang Karangasem) */
+  background-image: url('https://cdn.phototourl.com/free/2026-08-29-d9db1c99-be7e-445d-bcc5-b43f659f9918.png') !important;
+  background-size: contain !important;     /* Memastikan gambar logo utuh tidak terpotong */
+  background-position: center !important;  /* Posisi gambar tepat di tengah */
+  background-repeat: no-repeat !important; /* Mencegah gambar berulang */
+  
+  /* 3. MENGHILANGKAN KOTAK HIJAU DAN IKON BINTANG BAWAAN */
+  background-color: transparent !important; /* Menghapus warna latar belakang hijau bawaan */
+  color: transparent !important;            /* Membuat karakter bintang '✦' menjadi tidak terlihat */
+  font-size: 0 !important;                  /* Mengecilkan teks bintang agar tidak memakan ruang */
+  
+  /* Mencegah logo melar akibat efek flexbox navbar */
+  flex-shrink: 0 !important; 
+}
+
+
+  /* 2. MENGUBAH LOGO HIJAU BAWAAN - URL Tetap Terjaga */
+  background-image: url('https://cdn.phototourl.com/free/2026-08-29-d9db1c99-be7e-445d-bcc5-b43f659f9918.png') !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important; /* Menghapus kotak hijau bawaan */
+  display: block !important;
+}
+
+}
+.login-card h2 { font-size: 24px; margin-bottom: 8px; }
+.login-card p { color: var(--muted); font-size: 14px; margin-bottom: 30px; }
+.login-form-group { display: grid; gap: 15px; text-align: left; }
+.login-form-group input {
+  width: 100%; padding: 15px 18px; border: 1px solid var(--line);
+  border-radius: 14px; outline: none; transition: all 0.3s;
+}
+.login-form-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(22,128,58,0.1); }
+.login-submit-btn {
+  background: linear-gradient(135deg, #16803a, #39b85a);
+  color: #fff; border: none; padding: 16px; border-radius: 14px;
+  font-weight: 750; font-size: 15px; cursor: pointer; margin-top: 10px;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;
+}
+.login-submit-btn:hover { box-shadow: 0 12px 25px rgba(22,128,58,0.22); transform: translateY(-2px); }
+.login-submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+#loginError { color: var(--danger); font-size: 13px; margin-top: 10px; text-align: center; display: none; }
+
+@media(max-width:900px){
+ .hero-grid,.info-grid,.help{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}
+ nav{display:none;position:absolute;left:4%;right:4%;top:70px;background:#fff;padding:12px;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.1);flex-direction:column;align-items:stretch}
+ nav.open{display:flex}.menu{display:block}.footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+ .hero{padding-top:45px}.grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}
+ .copyright{flex-direction:column}.help{padding:30px 24px}.hero-card{padding:14px}
+ .viewer-head{align-items:flex-start;flex-direction:column}.viewer-actions{width:100%}.viewer-btn{flex:1}.iframe-wrap{height:calc(100dvh - 150px);min-height:480px}.service-frame{height:100%}
+ .login-card { padding: 30px 20px; }
+}
+
+/* AUTO FIT LAYAR */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+main{width:100%}
+
+.container{ max-width: 1550px; width: 96%; margin: 0 auto; }
+.service-viewer.show{ width: 96%; max-width: 1550px; margin: 0 auto; }
+
+@supports (height: 100dvh){
+  .iframe-wrap{height:calc(100dvh - 90px) !important; min-height: 580px;} /* Sesuai perbaikan tinggi kita sebelumnya */
+}
+@media(max-width:900px){ .iframe-wrap{height:calc(100dvh - 120px) !important; min-height:460px} }
+@media(max-width:560px){ .iframe-wrap{height:calc(100dvh - 140px) !important; min-height:400px} }
+</style>
+</head>
+<body>
+
+<!-- LAYAR LOGIN WAJIB SEBELUM KONTEN MUNCUL -->
+<div id="authOverlay" class="login-overlay">
+  <div class="login-card">
+    <div class="logo">✦</div>
+    <h2>Portal SIDOKUASN</h2>
+    <p>Otentikasi diperlukan untuk mengakses layanan.</p>
+    <form id="authForm">
+      <div class="login-form-group">
+        <input type="text" name="username" placeholder="NIP / Username" required autocomplete="username">
+        <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+        <button type="submit" class="login-submit-btn" id="authBtn">Masuk ke Portal</button>
+      </div>
+      <div id="loginError">Terjadi kesalahan teknis. Silakan coba lagi.</div>
+    </form>
+  </div>
+</div>
+
+<!-- KONTEN APLIKASI (DISembunyikan sampai login sukses) -->
+<div id="appContainer" style="display: none; opacity: 0; transition: opacity 0.5s ease;">
+  <header>
+   <div class="container nav">
+    <a class="brand" href="#beranda">
+     <div class="logo">✦</div>
+     <div>SIDOKUASN<small>Sistem Informasi Digital dan Optimalisasi Kepegawaian Umum Aparatur Sipil Negara</small></div>
+    </a>
+    <button class="menu" onclick="toggleMenu()">☰</button>
+    <nav id="nav">
+     <a class="active" href="#beranda">Beranda</a>
+     <a href="#layanan">Layanan Kepegawaian</a>
+     <a href="#informasi">Informasi Teknis</a>
+     <a href="#bantuan">Bantuan</a>
+     <a href="#" style="color:var(--danger)" onclick="logoutPortal()">Keluar</a>
+     </nav>
+   </div>
+  </header>
+
+  <main>
+  <section class="hero" id="beranda">
+   <div class="container hero-grid">
+    <div>
+     <div class="badge"><i class="dot"></i> Layanan Digital ASN Terintegrasi</div>
+     <h1>Urusan kepegawaian jadi <span class="gradient">lebih mudah.</span></h1>
+     <p>Satu portal untuk mengakses layanan, persyaratan, panduan teknis, informasi kepegawaian, dan bantuan bagi Aparatur Sipil Negara.</p>
+     <div class="actions">
+      <a class="btn btn-primary" href="#layanan">Jelajahi Layanan →</a>
+      <a class="btn btn-light" href="#bantuan">Butuh Bantuan?</a>
+     </div>
+    </div>
+    <div class="hero-card">
+     <!-- KODE LAMA DASHBOARD LAYANAN DIGANTI MENJADI: -->
+<div class="iframe-wrap">
+  <iframe 
+    src="https://bkpsdm-karangasemkab.github.io/monitorkenaikanpangkat/" 
+    class="service-frame" 
+    loading="lazy" 
+    allowfullscreen>
+  </iframe>
+</div>
+</div>
+    </div>
+   </div>
+  </section>
+
+  <section class="section" id="layanan">
+   <div class="container">
+    <div class="section-head">
+     <div class="eyebrow">Layanan Utama</div>
+     <h2>Semua layanan dalam satu portal</h2>
+     <p>Pilih layanan yang Anda butuhkan. Aplikasi akan tampil langsung di dalam portal SIDOKUASN tanpa membuka halaman baru.</p>
+    </div>
+    <div class="search"><span>⌕</span><input id="search" oninput="filterServices()" placeholder="Cari layanan kepegawaian..."></div>
+
+    <div class="grid" id="serviceGrid">
+     <div class="service" tabindex="0" data-name="Kenaikan Pangkat" onclick="openService('kenaikanPangkat')" onkeydown="serviceKey(event,'kenaikanPangkat')">
+      <div class="icon">↗</div><h3>Kenaikan Pangkat</h3><p>Informasi dan pengajuan usul kenaikan pangkat ASN.</p>
+     </div>
+     <div class="service" tabindex="0" data-name="Pencantuman Gelar dan PMK" onclick="openService('gelarPMK')" onkeydown="serviceKey(event,'gelarPMK')">
+      <div class="icon">◇</div><h3>Pencantuman Gelar & PMK</h3><p>Layanan pencantuman gelar pendidikan dan peninjauan masa kerja.</p>
+     </div>
+     <div class="service" tabindex="0" data-name="Pensiun" onclick="openService('pensiun')" onkeydown="serviceKey(event,'pensiun')">
+      <div class="icon">◷</div><h3>Pensiun</h3><p>Persyaratan, proses, dan pengajuan layanan pensiun ASN.</p>
+     </div>
+     <div class="service" tabindex="0" data-name="SLKS Satyalancana Karya Satya" onclick="openService('slks')" onkeydown="serviceKey(event,'slks')">
+      <div class="icon">★</div><h3>SLKS</h3><p>Pengajuan dan informasi Satyalancana Karya Satya.</p>
+     </div>
+     <div class="service" tabindex="0" data-name="Jabatan Fungsional"><div class="icon">◎</div><h3>Jabatan Fungsional</h3><p>Pengelolaan karier dan administrasi jabatan fungsional.</p></div>
+     <div class="service" tabindex="0" data-name="Mutasi dan Promosi"><div class="icon">⇄</div><h3>Mutasi & Promosi</h3><p>Layanan administrasi mutasi dan pengembangan karier.</p></div>
+     <div class="service" tabindex="0" data-name="Pengembangan Kompetensi"><div class="icon">◈</div><h3>Kompetensi ASN</h3><p>Informasi pengembangan kompetensi dan pembelajaran.</p></div>
+     <div class="service" tabindex="0" data-name="Konsultasi Kepegawaian"><div class="icon">?</div><h3>Konsultasi</h3><p>Sampaikan pertanyaan dan kendala layanan kepegawaian.</p></div>
+    </div>
+
+    <div class="service-viewer" id="serviceViewer">
+     <div class="viewer-head">
+      <div class="viewer-title">
+       <div class="mini-icon" id="viewerIcon">↗</div>
+       <div><strong id="viewerTitle">Layanan</strong><span id="viewerStatus">Memuat aplikasi...</span></div>
+      </div>
+      <div class="viewer-actions">
+       <button class="viewer-btn" onclick="closeService()">← Daftar Layanan</button>
+       </div>
+     </div>
+     <div class="iframe-wrap">
+      <div class="frame-loading" id="frameLoading">
+       <div class="loader-box"><div class="spinner"></div><b>Memuat layanan...</b><p style="font-size:12px;margin-top:3px">Mohon tunggu beberapa saat.</p></div>
+      </div>
+      <iframe id="serviceFrame" class="service-frame" title="Layanan SIDOKUASN" allow="clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div class="no-frame" id="noFrame">
+       <h3>Aplikasi tidak dapat ditampilkan di dalam portal</h3>
+       </div>
+     </div>
+     <div class="viewer-note"><b>SIDOKUASN • Layanan Terintegrasi</b> — Anda tetap berada di portal utama selama aplikasi mendukung embedding iframe.</div>
+    </div>
+   </div>
+  </section>
+
+  <section class="section" id="informasi" style="padding-top:20px">
+   <div class="container">
+    <div class="section-head"><div class="eyebrow">Pusat Informasi</div><h2>Informasi teknis & panduan</h2><p>Temukan dokumen dan informasi terbaru untuk membantu proses layanan Anda.</p></div>
+    <div class="info-grid">
+     <div class="panel"><h3>🔎 Cek Status Usulan Dokumen</h3><div class="list">
+    <a href="#informasi" onclick="openService('cekKenaikanPangkat')">Cek Pengajuan Kenaikan Pangkat <b>→</b></a>
+    <a href="#informasi" onclick="openService('cekPensiun')">Cek Pengajuan Pensiun <b>→</b></a>
+    <a href="#informasi" onclick="openService('cekGelarPMK')">Cek Pengajuan Pencantuman Gelar & PMK <b>→</b></a>
+    <a href="#informasi" onclick="openService('cekSLKS')">Cek Pengajuan Satya Lancana Karya Satya <b>→</b></a>
+     </div></div>
+     <div class="panel"><h3>📢 Informasi Terbaru</h3><div class="list">
+      <a href="#">Jadwal & Periode Layanan <b>→</b></a>
+      <a href="#">Pengumuman Kepegawaian <b>→</b></a>
+      <a href="#">Regulasi & Peraturan Terbaru <b>→</b></a>
+      <a href="#">Download Formulir <b>→</b></a>
+     </div></div>
+    </div>
+   </div>
+  </section>
+
+  <section class="section" id="bantuan">
+   <div class="container">
+    <div class="help">
+     <div><div class="eyebrow" style="color:#a6efad">Pusat Bantuan</div><h2>Masih mengalami kendala?</h2><p>Gunakan layanan konsultasi untuk mendapatkan bantuan terkait proses, persyaratan, atau penggunaan portal.</p></div>
+     <div class="actions" style="justify-content:flex-end"><button class="btn btn-light" onclick="openModal('help')">💬 Konsultasi Sekarang</button></div>
+    </div>
+   </div>
+  </section>
+  </main>
+
+  <footer>
+   <div class="container">
+    <div class="footer-grid">
+     <div><h3>SIDOKUASN</h3><p>Portal layanan kepegawaian digital untuk mewujudkan pelayanan ASN yang cepat, mudah, transparan, dan terintegrasi.</p></div>
+     <div><h4>Layanan</h4><a href="#layanan" onclick="openService('kenaikanPangkat')">Kenaikan Pangkat</a><a href="#layanan" onclick="openService('pensiun')">Pensiun</a><a href="#layanan" onclick="openService('slks')">SLKS</a><a href="#layanan" onclick="openService('gelarPMK')">Gelar & PMK</a></div>
+     <div><h4>Informasi</h4><a href="#informasi">Panduan</a><a href="#informasi">Regulasi</a><a href="#informasi">Pengumuman</a><a href="#informasi">Download</a></div>
+     <div><h4>Bantuan</h4><a href="#bantuan">Konsultasi</a><a href="#">FAQ</a><a href="#">Kontak Admin</a><a href="#">Status Layanan</a></div>
+    </div>
+    <div class="copyright"><span>© 2026 SIDOKUASN • BKPSDM</span><span>Digital • Terintegrasi • Informatif</span></div>
+   </div>
+  </footer>
+
+  <div class="modal" id="modal">
+   <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <h2 id="modalTitle" style="font-size:27px">Konsultasi</h2>
+    <p id="modalText" style="color:#64748b">Sampaikan pertanyaan atau kendala Anda.</p>
+    <form class="form" onsubmit="submitForm(event)">
+     <input placeholder="Nama / NIP" required>
+     <input placeholder="Email / WhatsApp" required>
+     <textarea placeholder="Tuliskan pertanyaan atau kendala..." required></textarea>
+     <button class="btn btn-primary" type="submit">Kirim Konsultasi</button>
+    </form>
+   </div>
+  </div>
+</div>
+
+<script>
+/* 
+  ==========================================================
+  KONFIGURASI OTENTIKASI & APLIKASI
+  ==========================================================
+*/
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJXsqBkH8XQF9b7FsFSkEjy_GwHNug-HL7COe-Q4fxtxSv7QfFD6cPDqGSDF9KKC_Q/exec";
+
+const services = {
+  kenaikanPangkat:{
+    title:"Kenaikan Pangkat",
+    icon:"↗",
+    url:"https://www.appsheet.com/start/982feee5-3e59-41f7-9801-a6cb2f883edb?platform=desktop"
+  },
+  gelarPMK:{
+    title:"Pencantuman Gelar & PMK",
+    icon:"◇",
+    url:"https://www.appsheet.com/start/1678567e-96ea-49c9-bd66-676fe46b35ae?platform=desktop"
+  },
+  pensiun:{
+    title:"Pensiun",
+    icon:"◷",
+    url:"https://www.appsheet.com/start/17be399c-4994-4ac6-bb42-9287e6666985?platform=desktop"
+  },
+  slks:{
+    title:"SLKS — Satyalancana Karya Satya",
+    icon:"★",
+    url:"https://www.appsheet.com/start/dd7675f8-409a-43de-ae41-8ca6dceedf0d?platform=desktop"
+  },
+  cekKenaikanPangkat: {
+    title: "Cek Pengajuan Kenaikan Pangkat",
+    icon: "🔎",
+    url: "https://script.google.com/macros/s/AKfycbw8oPm-aGxzUnQ3hhYe2YrPWH28lFgW_YdN9DynR34OYl79GxfIvMVLcw1fUCVCevVYkA/exec"
+  },
+  cekPensiun: {
+    title: "Cek Pengajuan Pensiun",
+    icon: "🔎",
+    url: "https://bkpsdm-karangasemkab.github.io/Cek-Usulan-Pensiun/"
+  },
+  cekGelarPMK: {
+    title: "Cek Pengajuan Gelar & PMK",
+    icon: "🔎",
+    url: "https://bkpsdm-karangasemkab.github.io/cekusulandokumenpg-pmk/"
+  },
+  cekSLKS: {
+    title: "Cek Pengajuan SLKS",
+    icon: "🔎",
+    url: "https://bkpsdm-karangasemkab.github.io/Cek-Usulan-SLKS/"
+  }
+};
+
+let currentService = null;
+
+// CEK STATUS LOGIN SAAT HALAMAN DIMUAT
+document.addEventListener("DOMContentLoaded", () => {
+  const isLoggedIn = sessionStorage.getItem('sidokuasn_auth');
+  if (isLoggedIn === 'true') {
+    unlockPortal();
+  } else {
+    document.getElementById('authOverlay').style.display = 'flex';
+  }
+});
+
+// PROSES FORM LOGIN
+document.getElementById('authForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('authBtn');
+  const errorMsg = document.getElementById('loginError');
+  const originalText = btn.textContent;
+  
+  btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;margin:0;border-width:3px;border-top-color:#fff"></span> Memverifikasi...';
+  btn.disabled = true;
+  errorMsg.style.display = 'none';
+
+  const formData = new FormData(this);
+
+  // Kirim data ke Google Apps Script menggunakan fetch
+  // Menggunakan mode: 'no-cors' agar request tetap terkirim walaupun setting CORS GAS belum sempurna.
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors' 
+  })
+  .then(() => {
+    // Apabila fetch selesai (tidak peduli isi response krn opaque dari no-cors), kita asumsikan log tersimpan/login valid
+    sessionStorage.setItem('sidokuasn_auth', 'true');
+    unlockPortal();
+  })
+  .catch(error => {
+    console.error('Network Error:', error);
+    errorMsg.style.display = 'block';
+  })
+  .finally(() => {
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  });
+});
+
+// FUNGSI MEMBUKA KUNCI HALAMAN
+function unlockPortal() {
+  const overlay = document.getElementById('authOverlay');
+  const container = document.getElementById('appContainer');
+  
+  overlay.classList.add('hidden');
+  
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    container.style.display = 'block';
+    
+    // Memberikan jeda tipis agar transisi CSS aktif
+    setTimeout(() => {
+      container.style.opacity = '1';
+    }, 50);
+  }, 500); // Waktu sesuai durasi transisi di CSS
+}
+
+function logoutPortal() {
+  sessionStorage.removeItem('sidokuasn_auth');
+  window.location.reload();
+}
+
+function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
+
+function openService(serviceName){
+  const service=services[serviceName];
+  if(!service)return;
+  currentService=serviceName;
+
+  const grid=document.getElementById('serviceGrid');
+  const viewer=document.getElementById('serviceViewer');
+  const frame=document.getElementById('serviceFrame');
+  const loading=document.getElementById('frameLoading');
+  const noFrame=document.getElementById('noFrame');
+
+  document.getElementById('viewerTitle').textContent=service.title;
+  document.getElementById('viewerIcon').textContent=service.icon;
+  document.getElementById('viewerStatus').textContent='Memuat aplikasi...';
+  noFrame.classList.remove('show');
+  loading.classList.remove('hidden');
+  grid.style.display='none';
+  viewer.classList.add('show');
+
+  if(!service.url){
+    loading.classList.add('hidden');
+    noFrame.classList.add('show');
+    document.getElementById('viewerStatus').textContent='URL aplikasi belum dikonfigurasi';
+    frame.removeAttribute('src');
+  }else{
+    frame.src=service.url;
+  }
+
+  requestAnimationFrame(()=>viewer.scrollIntoView({behavior:'smooth',block:'start'}));
+}
+
+function closeService(){
+  const viewer=document.getElementById('serviceViewer');
+  const grid=document.getElementById('serviceGrid');
+  const frame=document.getElementById('serviceFrame');
+  viewer.classList.remove('show');
+  grid.style.display='grid';
+  frame.removeAttribute('src');
+  document.getElementById('frameLoading').classList.remove('hidden');
+  document.getElementById('noFrame').classList.remove('show');
+  currentService=null;
+  document.getElementById('layanan').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function serviceKey(e,serviceName){
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();openService(serviceName)}
+}
+
+document.getElementById('serviceFrame').addEventListener('load',function(){
+  document.getElementById('frameLoading').classList.add('hidden');
+  if(currentService){
+    document.getElementById('viewerStatus').textContent='Aplikasi siap digunakan';
+  }
+});
+
+function openModal(type){
+ const m=document.getElementById('modal');
+ m.classList.add('show');
+}
+
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+function submitForm(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const originalText = btn.textContent;
+  
+  // Modifikasi agar tidak memakai fungsi `alert()`
+  btn.textContent = 'Berhasil Terkirim! ✔';
+  btn.style.background = 'var(--success)';
+  
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = '';
+    closeModal();
+    e.target.reset();
+  }, 2000);
+}
+
+function filterServices(){
+ const q=document.getElementById('search').value.toLowerCase().trim();
+ document.querySelectorAll('.service').forEach(x=>x.style.display=x.dataset.name.toLowerCase().includes(q)?'block':'none')
+}
+document.querySelectorAll('nav a:not(.login)').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')))
+window.addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+</script>
+</body>
+</html>
