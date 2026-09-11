@@ -138,41 +138,94 @@ footer a{display:block;margin:7px 0}.copyright{border-top:1px solid rgba(255,255
 
   /* Lapisan transparan tipis agar tulisan di kartu login lebih mudah dibaca */
   background-blend-mode: overlay;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .login-overlay.hidden {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
-.login-card {
-  /* 1. EFEK KACA TRANSPARAN (Glassmorphism) */
-  background: rgba(255, 255, 255, 0.65) !important; /* Membuat kotak putih transparan 75% */
-  backdrop-filter: blur(14px) !important;           /* Efek blur pada gambar latar di belakang kotak */
-  -webkit-backdrop-filter: blur(14px) !important;    /* Dukungan efek blur untuk browser Safari/iOS */
-  
-  width: 100%;
-  max-width: 420px;
-  border-radius: 24px;
-  padding: 45px 35px;
-  text-align: center;
 
-  /* 2. EFEK DIMENSI DIGITAL (Glow & Border Halus) */
-  border: 1px solid rgba(255, 255, 255, 0.4) !important; /* Garis tepi putih transparan tipis seperti kaca */
-  
-  /* Kombinasi bayangan gelap lembut + kilau luar neon hijau khas masa kini */
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 
-              0 0 30px rgba(22, 128, 58, 0.25) !important; 
-              
-  transition: all 0.4s ease;
+/* --- GAYA BARU UNTUK MAIN LAYOUT LOGIN (Dari File Anda) --- */
+.main-layout {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 950px;
+    min-height: 520px;
+    display: flex;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
 }
+.main-layout:focus-within {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 45px rgba(39, 184, 90, 0.3);
+    transform: translateY(-2px);
+}
+.login-section {
+    flex: 1;
+    max-width: 450px;
+    background: #ffffff;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.info-section {
+    flex: 1;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+}
+.info-content {
+    background: rgba(0, 0, 0, 0.45);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.info-content h1 { font-size: 32px; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.info-content p { font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; color: #e2e8f0; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.feature-list { list-style: none; padding: 0; margin: 0; }
+.feature-list li { display: flex; align-items: center; margin-bottom: 12px; font-size: 14px; color: #f8fafc; }
+.feature-list svg { margin-right: 12px; color: #39b85a; flex-shrink: 0; }
 
-/* BONUS: Efek interaktif saat pengguna mengklik kolom input untuk mengetik */
-.login-card:focus-within {
-  background: rgba(255, 255, 255, 0.85) !important; /* Sedikit lebih jelas agar fokus */
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 
-              0 0 45px rgba(39, 184, 90, 0.4) !important; /* Kilau hijau neonnya melebar */
-  transform: translateY(-2px); /* Kotak sedikit terangkat naik secara dinamis */
+.login-section h2 { margin: 0 0 8px 0; color: #0f172a; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+.login-section > p { color: #64748b; font-size: 14px; margin: 0 0 32px 0; line-height: 1.5; }
+
+.input-group { margin-bottom: 20px; text-align: left; }
+.input-group label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 650; color: #334155; }
+.input-wrapper { position: relative; }
+.input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; transition: color 0.2s ease; }
+button.toggle-password { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: auto; height: auto; padding: 4px; background: transparent; color: #94a3b8; border: none; cursor: pointer; }
+button.toggle-password:hover { color: #16803a; }
+.input-group input { width: 100%; padding: 14px 44px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 14px; font-family: inherit; background-color: #f8fafc; color: #1e293b; transition: all 0.3s ease; outline: none; }
+.input-group input:focus { border-color: #16803a; background-color: #ffffff; box-shadow: 0 0 0 4px rgba(22, 128, 58, 0.1); }
+.input-group input:focus + .input-icon { color: #16803a; }
+
+.login-submit-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #16803a, #39b85a); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; box-shadow: 0 10px 20px rgba(22,128,58,0.2); }
+.login-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(22,128,58,0.3); }
+.login-submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.spinner-btn { display: none; width: 18px; height: 18px; border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; }
+.status-message { margin-top: 20px; padding: 12px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; display: none; align-items: flex-start; gap: 10px; line-height: 1.4; }
+#pesan-error { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+#pesan-sukses { background-color: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+.footer-text { margin-top: 24px; font-size: 12px; color: #94a3b8; text-align: center; }
+
+.brand-icon-login {
+  width: 50px; height: 50px; display: inline-block;
+  background-image: url('https://cdn.phototourl.com/free/2026-08-29-d9db1c99-be7e-445d-bcc5-b43f659f9918.png');
+  background-size: contain; background-position: center; background-repeat: no-repeat;
+  margin-bottom: 20px;
 }
 
 .logo {
@@ -184,16 +237,16 @@ footer a{display:block;margin:7px 0}.copyright{border-top:1px solid rgba(255,255
   /* 2. MEMASUKKAN GAMBAR LOGO BARU (Lambang Karangasem) */
   background-image: url('https://cdn.phototourl.com/free/2026-08-29-d9db1c99-be7e-445d-bcc5-b43f659f9918.png') !important;
   background-size: contain !important;     /* Memastikan gambar logo utuh tidak terpotong */
-  background-position: center !important;  /* Posisi gambar tepat di tengah */
-  background-repeat: no-repeat !important; /* Mencegah gambar berulang */
-  
-  /* 3. MENGHILANGKAN KOTAK HIJAU DAN IKON BINTANG BAWAAN */
-  background-color: transparent !important; /* Menghapus warna latar belakang hijau bawaan */
-  color: transparent !important;            /* Membuat karakter bintang '✦' menjadi tidak terlihat */
-  font-size: 0 !important;                  /* Mengecilkan teks bintang agar tidak memakan ruang */
-  
-  /* Mencegah logo melar akibat efek flexbox navbar */
-  flex-shrink: 0 !important; 
+ @media(max-width:900px){
+ .hero-grid,.info-grid,.help{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}
+ nav{display:none;position:absolute;left:4%;right:4%;top:70px;background:#fff;padding:12px;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.1);flex-direction:column;align-items:stretch}
+ nav.open{display:flex}.menu{display:block}.footer-grid{grid-template-columns:repeat(2,1fr)}
+ 
+ /* Responsivitas Login Baru */
+ .main-layout { flex-direction: column-reverse; min-height: auto; width: 95%; max-width: 500px; }
+ .login-section { max-width: 100%; padding: 40px 30px; border-radius: 0 0 24px 24px; }
+ .info-section { padding: 30px 30px 10px 30px; border-radius: 24px 24px 0 0; }
+ .info-content { padding: 25px; }
 }
 
 
@@ -256,18 +309,86 @@ main{width:100%}
 
 <!-- LAYAR LOGIN WAJIB SEBELUM KONTEN MUNCUL -->
 <div id="authOverlay" class="login-overlay">
-  <div class="login-card">
-    <div class="logo">✦</div>
-    <h2>Portal SIDOKUASN</h2>
-    <p>Otentikasi diperlukan untuk mengakses layanan.</p>
-    <form id="authForm">
-      <div class="login-form-group">
-        <input type="text" name="username" placeholder="NIP / Username" required autocomplete="username">
-        <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
-        <button type="submit" class="login-submit-btn" id="authBtn">Masuk ke Portal</button>
-      </div>
-      <div id="loginError">Terjadi kesalahan teknis. Silakan coba lagi.</div>
-    </form>
+  <div class="main-layout">
+        
+    <!-- Bagian Kiri: Form Login -->
+    <div class="login-section">
+        <div class="brand-icon-login"></div>
+
+        <h2>Selamat Datang</h2>
+        <p>Silakan masuk untuk mengakses portal layanan.</p>
+
+        <div class="input-group">
+            <label for="nip">NIP Pegawai / Username</label>
+            <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <input type="text" id="nip" placeholder="Masukkan NIP atau Username" autocomplete="off" onkeypress="if(event.key==='Enter') jalankanLogin()">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Kata Sandi</label>
+            <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <input type="password" id="password" placeholder="Masukkan kata sandi" onkeypress="if(event.key==='Enter') jalankanLogin()">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" aria-label="Tampilkan/sembunyikan sandi">
+                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <button id="btnLogin" class="login-submit-btn" onclick="jalankanLogin()">
+            <span class="btn-text">Masuk Sekarang</span>
+            <div class="spinner-btn" id="btnSpinner"></div>
+        </button>
+
+        <div id="pesan-error" class="status-message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="flex-shrink: 0;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="error-text"></span>
+        </div>
+        
+        <div id="pesan-sukses" class="status-message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="flex-shrink: 0;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="sukses-text"></span>
+        </div>
+        
+        <div class="footer-text">&copy; 2026 SIDOKUASN Karangasem</div>
+    </div>
+
+    <!-- Bagian Kanan: Informasi SidokuASN -->
+    <div class="info-section">
+        <div class="info-content">
+            <h1>SIDOKUASN</h1>
+            <p>Sistem Informasi Digital dan Optimalisasi Kepegawaian Umum Aparatur Sipil Negara. Platform terpadu untuk layanan yang efisien, aman, dan transparan.</p>
+            
+            <ul class="feature-list">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Autentikasi Aman dengan NIP terpusat
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Akses Data Kepegawaian Real-time
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Aplikasi Terintegrasi dalam satu layar
+                </li>
+            </ul>
+        </div>
+    </div>
+
   </div>
 </div>
 
@@ -432,7 +553,7 @@ main{width:100%}
   KONFIGURASI OTENTIKASI & APLIKASI
   ==========================================================
 */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJXsqBkH8XQF9b7FsFSkEjy_GwHNug-HL7COe-Q4fxtxSv7QfFD6cPDqGSDF9KKC_Q/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby4g6OBQuKBUubDH1BtQ1H1bBYIFcAeEecqulTibECYLRvOe2YX2j5syGlberxM95Lk/exec";
 
 const services = {
   kenaikanPangkat:{
@@ -489,41 +610,80 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// PROSES FORM LOGIN
-document.getElementById('authForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  const btn = document.getElementById('authBtn');
-  const errorMsg = document.getElementById('loginError');
-  const originalText = btn.textContent;
-  
-  btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;margin:0;border-width:3px;border-top-color:#fff"></span> Memverifikasi...';
-  btn.disabled = true;
-  errorMsg.style.display = 'none';
+// FUNGSI TOGGLE PASSWORD
+function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("password");
+    var eyeIcon = document.getElementById("eyeIcon");
+    
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.016 10.016 0 014.122-.963c4.478 0 8.268 2.943 9.542 7a9.97 9.97 0 01-2.18 3.513M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 6L3 3" />`;
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+    }
+}
 
-  const formData = new FormData(this);
+// PROSES FORM LOGIN BARU BERDASARKAN SPREADSHEET
+function jalankanLogin() {
+    var nip = document.getElementById("nip").value.trim();
+    var password = document.getElementById("password").value.trim();
+    var btn = document.getElementById("btnLogin");
+    var errorDiv = document.getElementById("pesan-error");
+    var suksesDiv = document.getElementById("pesan-sukses");
+    var spinner = document.getElementById("btnSpinner");
 
-  // Kirim data ke Google Apps Script menggunakan fetch
-  // Menggunakan mode: 'no-cors' agar request tetap terkirim walaupun setting CORS GAS belum sempurna.
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: formData,
-    mode: 'no-cors' 
-  })
-  .then(() => {
-    // Apabila fetch selesai (tidak peduli isi response krn opaque dari no-cors), kita asumsikan log tersimpan/login valid
-    sessionStorage.setItem('sidokuasn_auth', 'true');
-    unlockPortal();
-  })
-  .catch(error => {
-    console.error('Network Error:', error);
-    errorMsg.style.display = 'block';
-  })
-  .finally(() => {
-    btn.innerHTML = originalText;
-    btn.disabled = false;
-  });
-});
+    errorDiv.style.display = "none";
+    suksesDiv.style.display = "none";
+
+    if (nip === "" || password === "") {
+        document.getElementById("error-text").innerText = "NIP dan Kata Sandi wajib diisi.";
+        errorDiv.style.display = "flex";
+        return;
+    }
+
+    var btnText = btn.querySelector(".btn-text");
+    if (btnText) btnText.innerText = "Memverifikasi...";
+    btn.disabled = true;
+    spinner.style.display = "block";
+
+    function handleSuccess(response) {
+        if (btnText) btnText.innerText = "Masuk Sekarang";
+        btn.disabled = false;
+        spinner.style.display = "none";
+
+        if (response && response.status === true) {
+            document.getElementById("sukses-text").innerText = response.pesan;
+            suksesDiv.style.display = "flex";
+            
+            // Simpan status otentikasi di sesi lokal
+            sessionStorage.setItem('sidokuasn_auth', 'true');
+            
+            // Buka portal setelah jeda sukses 1.2 detik (Tanpa me-reload seluruh halaman)
+            setTimeout(unlockPortal, 1200);
+        } else {
+            document.getElementById("error-text").innerText = response ? response.pesan : "NIP atau Kata Sandi tidak cocok.";
+            errorDiv.style.display = "flex";
+        }
+    }
+
+    function handleFailure(error) {
+        if (btnText) btnText.innerText = "Masuk Sekarang";
+        btn.disabled = false;
+        spinner.style.display = "none";
+        document.getElementById("error-text").innerText = "Terjadi masalah koneksi ke server Spreadsheet.";
+        errorDiv.style.display = "flex";
+        console.error("Login fetch error: ", error);
+    }
+
+    // Menggunakan parameter action=login untuk ditangkap oleh backend doGet()
+    const endpoint = `${SCRIPT_URL}?action=login&nip=${encodeURIComponent(nip)}&password=${encodeURIComponent(password)}`;
+    
+    fetch(endpoint)
+        .then(res => res.json())
+        .then(data => handleSuccess(data))
+        .catch(err => handleFailure(err));
+}
 
 // FUNGSI MEMBUKA KUNCI HALAMAN
 function unlockPortal() {
