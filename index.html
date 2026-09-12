@@ -654,7 +654,7 @@ main{width:100%}
   KONFIGURASI OTENTIKASI & APLIKASI
   ==========================================================
 */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby-fzHyO5J-Gxjp_eXGAFPo4h9--uxcplMOkCeyrzWzMstaI_cDhuI7kqsvKGwggLbb/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby4g6OBQuKBUubDH1BtQ1H1bBYIFcAeEecqulTibECYLRvOe2YX2j5syGlberxM95Lk/exec";
 
 const services = {
   kenaikanPangkat:{
@@ -745,96 +745,146 @@ function togglePasswordVisibility() {
     }
 }
 
-// PROSES FORM LOGIN BARU BERDASARKAN SPREADSHEET
+// PROSES LOGIN CEPAT BERDASARKAN SPREADSHEET
+let loginSedangBerjalan = false;
+let loginAbortController = null;
+
 function jalankanLogin() {
-    var nip = document.getElementById("nip").value.trim();
-    var password = document.getElementById("password").value.trim();
-    var btn = document.getElementById("btnLogin");
-    var errorDiv = document.getElementById("pesan-error");
-    var suksesDiv = document.getElementById("pesan-sukses");
-    var spinner = document.getElementById("btnSpinner");
+    if (loginSedangBerjalan) return;
+
+    const nipInput = document.getElementById("nip");
+    const passwordInput = document.getElementById("password");
+    const btn = document.getElementById("btnLogin");
+    const errorDiv = document.getElementById("pesan-error");
+    const suksesDiv = document.getElementById("pesan-sukses");
+    const spinner = document.getElementById("btnSpinner");
+    const btnText = btn ? btn.querySelector(".btn-text") : null;
+
+    const nip = nipInput.value.trim();
+    const password = passwordInput.value.trim();
 
     errorDiv.style.display = "none";
     suksesDiv.style.display = "none";
 
-    if (nip === "" || password === "") {
-        document.getElementById("error-text").innerText = "NIP dan Kata Sandi wajib diisi.";
+    if (!nip || !password) {
+        document.getElementById("error-text").innerText =
+            "NIP dan Kata Sandi wajib diisi.";
         errorDiv.style.display = "flex";
+        if (!nip) nipInput.focus();
+        else passwordInput.focus();
         return;
     }
 
-    var btnText = btn.querySelector(".btn-text");
-    if (btnText) btnText.innerText = "Memverifikasi...";
+    loginSedangBerjalan = true;
     btn.disabled = true;
     spinner.style.display = "block";
+    if (btnText) btnText.innerText = "Memverifikasi...";
 
-    function handleSuccess(response) {
-        if (btnText) btnText.innerText = "Masuk Sekarang";
-        btn.disabled = false;
-        spinner.style.display = "none";
+    // Batalkan request sebelumnya jika masih menggantung.
+    if (loginAbortController) loginAbortController.abort();
+    loginAbortController = new AbortController();
 
-        if (response && response.status === true) {
-            document.getElementById("sukses-text").innerText = response.pesan;
-            suksesDiv.style.display = "flex";
-            
-            // Simpan status otentikasi di sesi lokal
-            sessionStorage.setItem('sidokuasn_auth', 'true');
-            
-            // Buka portal setelah jeda sukses 1.2 detik (Tanpa me-reload seluruh halaman)
-            setTimeout(unlockPortal, 1200);
-        } else {
-            document.getElementById("error-text").innerText = response ? response.pesan : "NIP atau Kata Sandi tidak cocok.";
-            errorDiv.style.display = "flex";
+    // Timeout 25 detik hanya sebagai pengaman jika Apps Script benar-benar tidak merespons.
+    const timeoutId = setTimeout(() => {
+        if (loginAbortController) loginAbortController.abort();
+    }, 25000);
+
+    const endpoint =
+        SCRIPT_URL +
+        "?action=login" +
+        "&nip=" + encodeURIComponent(nip) +
+        "&password=" + encodeURIComponent(password) +
+        "&_=" + Date.now();
+
+    fetch(endpoint, {
+        method: "GET",
+        cache: "no-store",
+        redirect: "follow",
+        signal: loginAbortController.signal
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Server login tidak dapat dihubungi.");
         }
-    }
+        return response.text();
+    })
+    .then(text => {
+        let response;
 
-    function handleFailure(error) {
-        if (btnText) btnText.innerText = "Masuk Sekarang";
+        try {
+            response = JSON.parse(text);
+        } catch (parseError) {
+            console.error("Respons mentah Apps Script:", text);
+            if (text.trim().startsWith("<")) {
+                throw new Error(
+                    "Apps Script mengembalikan halaman HTML. Pastikan Web App disetel 'Anyone' dan gunakan deployment terbaru."
+                );
+            }
+            throw new Error("Respon dari server tidak valid.");
+        }
+
+        if (!response || response.status !== true) {
+            throw new Error(
+                response && response.pesan
+                    ? response.pesan
+                    : "NIP atau Kata Sandi tidak sesuai."
+            );
+        }
+
+        // Simpan sesi dan data pengguna agar tidak perlu login ulang saat halaman
+        // masih berada pada tab browser yang sama.
+        sessionStorage.setItem("sidokuasn_auth", "true");
+        if (response.user) {
+            sessionStorage.setItem("sidokuasn_user", JSON.stringify(response.user));
+        }
+
+        document.getElementById("sukses-text").innerText =
+            response.pesan || "Login berhasil.";
+        suksesDiv.style.display = "flex";
+
+        // TIDAK ada lagi setTimeout 1,2 detik. Portal dibuka segera setelah respons valid.
+        unlockPortal();
+    })
+    .catch(error => {
+        if (error && error.name === "AbortError") {
+            document.getElementById("error-text").innerText =
+                "Koneksi login terlalu lama. Silakan coba lagi.";
+        } else {
+            console.error("SIDOKUASN Login:", error);
+            document.getElementById("error-text").innerText =
+                (error && error.message)
+                    ? error.message
+                    : "Terjadi masalah saat menghubungi server.";
+        }
+        errorDiv.style.display = "flex";
+    })
+    .finally(() => {
+        clearTimeout(timeoutId);
+        loginSedangBerjalan = false;
+        loginAbortController = null;
         btn.disabled = false;
         spinner.style.display = "none";
-        document.getElementById("error-text").innerText = error.message || "Terjadi masalah koneksi ke server Spreadsheet.";
-        errorDiv.style.display = "flex";
-        console.error("Login fetch error: ", error);
-    }
-
-    // Menggunakan parameter action=login untuk ditangkap oleh backend doGet()
-    const endpoint = `${SCRIPT_URL}?action=login&nip=${encodeURIComponent(nip)}&password=${encodeURIComponent(password)}`;
-    
-    fetch(endpoint)
-        .then(res => res.text())
-        .then(text => {
-            let data;
-            try {
-                data = JSON.parse(text);
-            } catch (parseErr) {
-                console.error("Server raw response:", text);
-                if (text.trim().startsWith("<")) {
-                    throw new Error("Apps Script mengembalikan HTML. Pastikan Web App disetting 'Siapa saja' (Anyone) dan pilih 'Versi Baru' saat re-deploy.");
-                } else {
-                    throw new Error("Respon dari server tidak valid.");
-                }
-            }
-            handleSuccess(data);
-        })
-        .catch(err => handleFailure(err));
+        if (btnText) btnText.innerText = "Masuk Sekarang →";
+    });
 }
 
-// FUNGSI MEMBUKA KUNCI HALAMAN
+// FUNGSI MEMBUKA KUNCI HALAMAN TANPA JEDA TAMBAHAN
 function unlockPortal() {
-  const overlay = document.getElementById('authOverlay');
-  const container = document.getElementById('appContainer');
-  
-  overlay.classList.add('hidden');
-  
-  setTimeout(() => {
-    overlay.style.display = 'none';
-    container.style.display = 'block';
-    
-    // Memberikan jeda tipis agar transisi CSS aktif
-    setTimeout(() => {
-      container.style.opacity = '1';
-    }, 50);
-  }, 500); // Waktu sesuai durasi transisi di CSS
+    const overlay = document.getElementById("authOverlay");
+    const container = document.getElementById("appContainer");
+
+    if (!overlay || !container) return;
+
+    // Tampilkan aplikasi segera. CSS opacity tetap digunakan untuk transisi halus.
+    container.style.display = "block";
+    container.style.opacity = "1";
+
+    overlay.classList.add("hidden");
+
+    // Hilangkan overlay setelah animasi CSS selesai. Tidak menahan proses login.
+    window.setTimeout(() => {
+        overlay.style.display = "none";
+    }, 500);
 }
 
 function logoutPortal() {
