@@ -12,6 +12,84 @@
   --muted:#64748b;--bg:#f3faf5;--card:#fff;--line:#dceee1;
   --success:#16a34a;--warning:#f59e0b;--danger:#dc2626;--radius:22px
 }
+  
+/* =========================================================
+   GAYA HEADER OPSI 3: GRADASI HIJAU MODERN (SAAS PREMIUM)
+   ========================================================= */
+
+/* 1. Latar Belakang Header dengan Gradasi Linear */
+header, .navbar, .header-container {     
+  background: rgba(22, 128, 58, 0.50) !important; /* Hijau transparan 75% */
+  backdrop-filter: blur(10px) !important; /* Efek blur pada latar belakang */
+  -webkit-backdrop-filter: blur(10px) !important; /* Dukungan untuk Safari/Chrome */
+}
+
+
+
+  border-bottom: none !important; 
+  box-shadow: 0 6px 25px rgba(22, 128, 58, 0.25) !important; /* Bayangan halus kehijauan */
+  padding: 14px 24px !important;
+  transition: all 0.3s ease;
+}
+
+/* 2. Menyesuaikan Teks Brand/Logo di Sisi Kiri agar Putih Bersih */
+.brand-title, header .brand-title, .navbar-brand {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(18, 53, 31, 0.2);
+}
+
+.brand-subtitle, header .brand-subtitle {
+  color: rgba(255, 255, 255, 0.85) !important; /* Putih sedikit transparan agar elegan */
+}
+
+/* 3. Menyesuaikan Daftar Menu Teks Kanan */
+header a, .navbar-nav a, .nav-link {
+  color: #ffffff !important; /* Teks menu menjadi putih */
+  font-family: 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  text-decoration: none !important;
+}
+
+/* Efek Sorot (Hover) Lembut di Atas Gradasi */
+header a:hover, .navbar-nav a:hover, .nav-link:hover {
+  color: var(--dark) !important; /* Teks berubah menjadi hijau gelap saat disorot */
+  background-color: rgba(255, 255, 255, 0.95) !important; /* Latar sorot putih bersih */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Menu yang sedang aktif/diklik */
+header a.active, .nav-link.active {
+  color: var(--dark) !important;
+  background-color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* 4. Menyesuaikan Tombol Keluar (Logout) agar Terlihat Sangat Premium */
+header a:last-child, .btn-keluar, a[href*="logout"] {
+  color: #ffffff !important;
+  background: var(--danger) !important; /* Merah danger bawaan Anda */
+  font-weight: 600 !important;
+  padding: 8px 20px !important;
+  border-radius: var(--radius) !important; /* Mengikuti radius 22px Anda */
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Efek Interaktif Tombol Keluar saat Disorot */
+header a:last-child:hover, .btn-keluar:hover, a[href*="logout"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5) !important;
+  filter: brightness(1.15); /* Membuat tombol sedikit menyala di atas background hijau */
+}
+
+header a:last-child:active, .btn-keluar:active, a[href*="logout"]:active {
+  transform: translateY(-1px) !important;
+}
+  
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
@@ -480,7 +558,7 @@ main{width:100%}
   <header>
    <div class="container nav">
     <a class="brand" href="#beranda">
-     <div class="logo">✦</div>
+     <div class="logo"></div>
      <div>SIDOKUASN<small>Sistem Informasi Digital dan Optimalisasi Kepegawaian Umum Aparatur Sipil Negara</small></div>
     </a>
     <button class="menu" onclick="toggleMenu()">☰</button>
@@ -489,7 +567,9 @@ main{width:100%}
      <a href="#layanan">Layanan Kepegawaian</a>
      <a href="#informasi">Informasi Teknis</a>
      <a href="#bantuan">Bantuan</a>
-     <a href="#" style="color:var(--danger)" onclick="logoutPortal()">Keluar</a>
+     <a href="#" style="color:var(--danger);" onclick="logoutPortal()">
+    <img src="https://cdn.phototourl.com/free/2026-09-16-eca567ba-8dd5-4ecb-9c7b-655db8dd3b2e.png" alt="Logout" style="width: 30px; height: 30px; vertical-align: middle;">
+    </a>
      </nav>
    </div>
   </header>
