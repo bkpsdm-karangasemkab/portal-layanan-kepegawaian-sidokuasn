@@ -13,6 +13,7 @@
   --success:#16a34a;--warning:#f59e0b;--danger:#dc2626;--radius:22px
 }
   
+
 /* --- KODE LAMA ANDA DI ATASNYA --- */
 
 /* TEMPELKAN KODE PERBAIKAN DI SINI (Tepat di atas tag penutup) */
@@ -272,7 +273,7 @@ footer a{display:block;margin:7px 0}.copyright{border-top:1px solid rgba(255,255
 .close{position:absolute;right:17px;top:14px;border:0;background:#f1f5f9;border-radius:50%;width:34px;height:34px;cursor:pointer}
 .form{display:grid;gap:13px;margin-top:18px}.form input,.form textarea{border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}.form textarea{min-height:100px;resize:vertical}
 
-/* GAYA BARU UNTUK FORCED LOGIN OVERLAY */
+ /* GAYA BARU UNTUK FORCED LOGIN OVERLAY */
 .login-overlay {
   position: fixed;
   inset: 0;
@@ -346,6 +347,75 @@ footer a{display:block;margin:7px 0}.copyright{border-top:1px solid rgba(255,255
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.15);
 }
+
+
+  /* Menambahkan bingkai garis tipis padat pada kotak login */
+.login-overlay, form, #loginForm {
+  border: 2px solid rgba(255, 255, 255, 0.4) !important; /* Bingkai putih semi-transparan */
+  border-radius: 15px !important; /* Membuat sudut bingkai melengkung halus */
+  padding: 25px !important; /* Memberikan jarak agar input tidak menempel ke bingkai */
+  background-color: rgba(255, 255, 255, 0.01) !important; /* Latar belakang tipis di dalam bingkai */
+}
+
+/* Desain Bingkai Login Premium & Elegan (Efek Kaca Bergradasi) */
+.login-center-wrapper {
+  /* 1. Latar Belakang Kaca Transparan Lembut */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)) !important;
+  
+  /* 2. Efek Blur Kaca yang Sangat Halus dan Mewah */
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+  
+  /* 3. Bingkai Tipis dengan Gradasi Hijau Instansi Ke Putih Transparan */
+  border-image: linear-gradient(135deg, rgba(40, 167, 69, 0.65), rgba(255, 255, 255, 0.1)) 1 !important;
+  border-radius: 24px !important; /* Membuat sudut kotak melengkung modern dan estetik */
+  
+  /* 4. Bayangan Berlapis: Kombinasi Bayangan Lembut Kedalaman + Pendaran Hijau Elegan */
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.25), 
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 0 25px rgba(40, 167, 69, 0.25) !important;
+  
+  /* 5. Jarak dan Dimensi */
+  padding: 40px 35px !important; /* Ruang dalam yang lebih lega agar teks bernapas */
+  max-width: 420px !important; /* Lebar ideal untuk form login profesional */
+  width: 100% !important;
+  
+  /* 6. Animasi Transisi Halus Saat Halaman Dimuat */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Tambahan Efek Interaktif: Bingkai Sedikit Lebih Bersinar Saat Form Disorot */
+.login-center-wrapper:hover {
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3), 
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 0 35px rgba(40, 167, 69, 0.4) !important;
+  transform: translateY(-2px); /* Kotak sedikit terangkat secara elegan */
+}
+
+/* Memposisikan teks Judul & Sub-judul "Selamat Datang" tepat di tengah */
+.login-center-wrapper h2, 
+.login-center-wrapper h3, 
+.login-center-wrapper p, 
+.login-center-wrapper small,
+.login-center-wrapper .login-header {
+  text-align: center !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+/* Opsional: Memberikan jarak vertikal yang manis agar teks sub-judul tidak menempel kaku */
+.login-center-wrapper small, 
+.login-center-wrapper p {
+  margin-top: 8px !important;
+  margin-bottom: 25px !important; /* Jarak yang pas sebelum masuk ke kolom input NIP */
+  var(--dark) /* Jika Anda ingin warnanya otomatis sama persis dengan variabel hijau gelap yang digunakan pada efek sorot menu navigasi sebelumnya. */
+}  
+
+  
 .info-content h1 { font-size: 32px; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 .info-content p { font-size: 15px; line-height: 1.6; margin: 0 0 24px 0; color: #e2e8f0; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
 .feature-list { list-style: none; padding: 0; margin: 0; }
@@ -491,6 +561,8 @@ main{width:100%}
 </head>
 <body>
 
+
+  
 <!-- LAYAR LOGIN WAJIB SEBELUM KONTEN MUNCUL (Menyerupai Gambar Referensi) -->
 <div id="authOverlay" class="login-overlay">
   <div class="login-center-wrapper">
