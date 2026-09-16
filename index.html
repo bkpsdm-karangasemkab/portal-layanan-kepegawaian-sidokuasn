@@ -503,7 +503,7 @@ main{width:100%}
      <p>Satu portal untuk mengakses layanan, persyaratan, panduan teknis, informasi kepegawaian, dan bantuan bagi Aparatur Sipil Negara.</p>
      <div class="actions">
       <a class="btn btn-primary" href="#layanan">Jelajahi Layanan →</a>
-      <a class="btn btn-light" href="#bantuan">Butuh Bantuan?</a>
+      <a class="btn btn-light" href="#bantuan">💼 Verifikator Kepegawaian?</a>
      </div>
     </div>
     <div class="hero-card">
@@ -612,14 +612,56 @@ main{width:100%}
   </section>
 
   <section class="section" id="bantuan">
-   <div class="container">
-    <div class="help">
-     <div><div class="eyebrow" style="color:#a6efad">Pusat Bantuan</div><h2>Masih mengalami kendala?</h2><p>Gunakan layanan konsultasi untuk mendapatkan bantuan terkait proses, persyaratan, atau penggunaan portal.</p></div>
-     <div class="actions" style="justify-content:flex-end"><button class="btn btn-light" onclick="openModal('help')">💬 Konsultasi Sekarang</button></div>
+  <div class="container">
+    <div class="help" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 20px;">
+      
+      <!-- CSS Tambahan untuk Efek Animasi & Desain Elegan -->
+      <style>
+        .btn-verifikator {
+          display: inline-block;
+          padding: 14px 36px;
+          font-size: 18px;
+          font-weight: 700;
+          color: #0b5133 !important; /* Warna teks gelap agar kontras dengan tombol putih-emas */
+          text-decoration: none;
+          background: linear-gradient(135deg, #ffffff 0%, #f1f8f5 100%);
+          border-radius: 50px; /* Membuat sudut tombol melengkung halus (capsule style) */
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), inset 0 -3px 0 rgba(0, 0, 0, 0.05);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+          letter-spacing: 0.5px;
+          margin-bottom: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        /* Efek saat tombol disorot (Hover) */
+        .btn-verifikator:hover {
+          transform: translateY(-4px); /* Gerakan bergeser ke atas saat disorot */
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25); /* Bayangan menjadi lebih lembut & tebal */
+          background: linear-gradient(135deg, #f1f8f5 0%, #ffffff 100%);
+          color: #0d6efd !important; /* Opsional: Mengubah warna teks sedikit saat di-hover */
+        }
+
+        /* Efek saat tombol diklik (Active) */
+        .btn-verifikator:active {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+      </style>
+
+      <!-- Tombol Utama -->
+      <a href="https://sites.google.com/view/verifikator-kepegawaian/dashboard" target="_blank" class="btn-verifikator">
+        💼 Verifikator Kepegawaian
+      </a>
+
+      <!-- Teks Keterangan di Bawah Tombol -->
+      <p style="color: #e0fbe2; font-size: 14px; margin: 0; font-style: italic; opacity: 0.95; letter-spacing: 0.3px;">
+        *Layanan verifikator kepegawaian hanya bisa diakses oleh admin pengelola kepegawaian BKPSDM.
+      </p>
+
     </div>
-   </div>
-  </section>
-  </main>
+  </div>
+</section>
+</main>
 
   <footer>
    <div class="container">
