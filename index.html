@@ -706,10 +706,18 @@ main{width:100%}
      <div class="service" tabindex="0" data-name="SLKS Satyalancana Karya Satya" onclick="openService('slks')" onkeydown="serviceKey(event,'slks')">
       <div class="icon">★</div><h3>SLKS</h3><p>Pengajuan Satya Lancana Karya Satya.</p>
      </div>
-     <div class="service" tabindex="0" data-name="Jabatan Fungsional"><div class="icon">◎</div><h3>Jabatan Fungsional</h3><p>Pengelolaan karier dan administrasi jabatan fungsional.</p></div>
-     <div class="service" tabindex="0" data-name="Mutasi dan Promosi"><div class="icon">⇄</div><h3>Mutasi & Promosi</h3><p>Layanan administrasi mutasi dan pengembangan karier.</p></div>
-     <div class="service" tabindex="0" data-name="Pengembangan Kompetensi"><div class="icon">◈</div><h3>Kompetensi ASN</h3><p>Informasi pengembangan kompetensi dan pembelajaran.</p></div>
-     <div class="service" tabindex="0" data-name="Konsultasi Kepegawaian"><div class="icon">?</div><h3>Konsultasi</h3><p>Sampaikan pertanyaan dan kendala layanan kepegawaian.</p></div>
+     <div class="service" tabindex="0" data-name="Jabatan Fungsional" onclick="openService('Fungsional')" onkeydown="serviceKey(event,'Fungsional')">
+      <div class="icon">◎</div><h3>Jabatan Fungsional</h3><p>Pengelolaan karier dan administrasi jabatan fungsional.</p>
+     </div>
+     <div class="service" tabindex="0" data-name="Mutasi dan Promosi" onclick="openService('Mutasi')" onkeydown="serviceKey(event,'Mutasi')">
+      <div class="icon">⇄</div><h3>Mutasi & Promosi</h3><p>Layanan administrasi mutasi dan pengembangan karier.</p>
+     </div>
+     <div class="service" tabindex="0" data-name="Pengembangan Kompetensi" onclick="openService('Kompetensi')" onkeydown="serviceKey(event,'Kompetensi')">
+      <div class="icon">◈</div><h3>Kompetensi ASN</h3><p>Informasi pengembangan kompetensi dan pembelajaran.</p>
+      </div>
+     <div class="service" tabindex="0" data-name="Konsultasi Kepegawaian" onclick="openService('Konsultasi')" onkeydown="serviceKey(event,'Konsultasi')">
+      <div class="icon">?</div><h3>Konsultasi</h3><p>Sampaikan pertanyaan dan kendala layanan kepegawaian.</p>
+      </div>
     </div>
 
     <div class="service-viewer" id="serviceViewer">
@@ -863,6 +871,27 @@ const services = {
     title:"SLKS — Satyalancana Karya Satya",
     icon:"★",
     url:"https://www.appsheet.com/start/dd7675f8-409a-43de-ae41-8ca6dceedf0d?platform=desktop"
+ },
+  Fungsional:{
+    title:"Jabatan Fungsional",
+    icon:"◎",
+    url:""
+ },
+  Mutasi:{
+    title:"Mutasi dan Promosi",
+    icon:"⇄",
+    url:""   
+  },
+  Kompetensi:{
+    title:"Pengembangan Kompetensi",
+    icon:"◈",
+    url:""
+  },
+  Konsultasi:{
+    title:"Konsultasi Kepegawaian",
+    icon:"?",
+    url:
+    
   },
   cekKenaikanPangkat: {
     title: "Cek Pengajuan Kenaikan Pangkat",
@@ -883,6 +912,7 @@ const services = {
     title: "Cek Pengajuan SLKS",
     icon: "🔎",
     url: "https://bkpsdm-karangasemkab.github.io/Cek-Usulan-SLKS/"
+    
   },
   infoKP: {
     title: "Monitor Kenaikan Pangkat",
