@@ -97,7 +97,7 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}
 
 .container {
   width: 100%;           
-  max-width: 1550px;    
+  max-width: 1850px;    
   margin: 0 auto;       
   padding: 0 15px;      
 }
@@ -549,15 +549,553 @@ button.toggle-password:hover { color: #16803a; }
 html,body{width:100%;max-width:100%;overflow-x:hidden}
 main{width:100%}
 
-.container{ max-width: 1550px; width: 96%; margin: 0 auto; }
-.service-viewer.show{ width: 96%; max-width: 1550px; margin: 0 auto; }
+.container{ max-width: 1850px; width: 98%; margin: 0 auto; }
+.service-viewer.show{ width: 98%; max-width: 1850px; margin: 0 auto; }
 
 @supports (height: 100dvh){
   .iframe-wrap{height:calc(100dvh - 90px) !important; min-height: 580px;} /* Sesuai perbaikan tinggi kita sebelumnya */
 }
 @media(max-width:900px){ .iframe-wrap{height:calc(100dvh - 120px) !important; min-height:460px} }
 @media(max-width:560px){ .iframe-wrap{height:calc(100dvh - 140px) !important; min-height:400px} }
+
+/* =========================================================
+   PENYESUAIAN JARAK HEADER, PUSAT INFORMASI & NAMA PENGGUNA
+   ========================================================= */
+
+/* Header tetap 76px; konten utama diberi ruang visual yang nyaman. */
+main {
+  scroll-padding-top: 92px;
+}
+
+/* Saat menu Informasi Teknis (#informasi) diklik, judul tidak tertutup header. */
+#informasi {
+  scroll-margin-top: 92px !important;
+  padding-top: 38px !important;
+  padding-bottom: 78px !important;
+}
+
+#informasi .section-head {
+  margin-top: 8px !important;
+  margin-bottom: 30px !important;
+}
+
+#informasi .section-head .eyebrow {
+  margin-bottom: 8px !important;
+}
+
+#informasi .section-head h2 {
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+#informasi .section-head p {
+  line-height: 1.65 !important;
+}
+
+/* Area nama pengguna pada header */
+.user-session {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  max-width: 260px;
+  padding: 7px 13px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border: 1px solid rgba(22,128,58,.14);
+  border-radius: 14px;
+  background: rgba(255,255,255,.78);
+  color: var(--dark);
+  box-shadow: 0 5px 16px rgba(22,128,58,.08);
+  white-space: nowrap;
+}
+
+.user-session-icon {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #e8f7ec;
+  font-size: 14px;
+  flex: 0 0 auto;
+}
+
+.user-session-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 750;
+  color: #123c25;
+}
+
+@media (max-width: 1100px) {
+  .user-session {
+    max-width: 210px;
+  }
+}
+
+@media (max-width: 900px) {
+  #informasi {
+    scroll-margin-top: 84px !important;
+    padding-top: 30px !important;
+  }
+
+  .user-session {
+    width: 100%;
+    max-width: none;
+    justify-content: flex-start;
+    margin: 3px 0 5px;
+  }
+}
+
+@media (max-width: 560px) {
+  #informasi {
+    scroll-margin-top: 82px !important;
+    padding-top: 26px !important;
+  }
+
+  #informasi .section-head {
+    margin-bottom: 24px !important;
+  }
+
+  .user-session {
+    min-height: 38px;
+    padding: 6px 11px;
+    border-radius: 12px;
+  }
+}
+
+
+/* =========================================================
+   POPUP LAYANAN FULLSCREEN - SIDOKUASN
+   Header tetap terlihat; area layanan memenuhi layar di bawah header.
+   Scroll halaman dikunci selama layanan terbuka.
+   ========================================================= */
+
+html.service-open,
+body.service-open {
+  overflow: hidden !important;
+  height: 100% !important;
+  overscroll-behavior: none !important;
+}
+
+#serviceViewer.service-viewer {
+  position: fixed !important;
+  top: 76px !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: calc(100dvh - 76px) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: none !important;
+  flex-direction: column !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  background: #fff !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.20) !important;
+  z-index: 1500 !important;
+}
+
+#serviceViewer.service-viewer.show {
+  display: flex !important;
+}
+
+#serviceViewer .viewer-head {
+  flex: 0 0 auto !important;
+  min-height: 68px !important;
+  padding: 10px 18px !important;
+  border-radius: 0 !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+#serviceViewer .iframe-wrap {
+  position: relative !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  background: #fff !important;
+}
+
+#serviceViewer .service-frame {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #fff !important;
+}
+
+#serviceViewer .viewer-note {
+  flex: 0 0 auto !important;
+  min-height: 36px !important;
+  padding: 8px 16px !important;
+  font-size: 11px !important;
+}
+
+#serviceViewer .frame-loading {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 5 !important;
+}
+
+#serviceViewer .no-frame {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 4 !important;
+  display: none;
+  place-items: center;
+  padding: 30px;
+}
+
+#serviceViewer .no-frame.show {
+  display: grid !important;
+}
+
+#serviceViewer .viewer-actions {
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+}
+
+#serviceViewer .viewer-btn {
+  white-space: nowrap !important;
+}
+
+@media (max-width: 900px) {
+  #serviceViewer.service-viewer {
+    top: 76px !important;
+    height: calc(100dvh - 76px) !important;
+  }
+  #serviceViewer .viewer-head {
+    min-height: 64px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  #serviceViewer.service-viewer {
+    top: 76px !important;
+    height: calc(100dvh - 76px) !important;
+  }
+
+  #serviceViewer .viewer-head {
+    min-height: 62px !important;
+    padding: 9px 12px !important;
+  }
+
+  #serviceViewer .viewer-title strong {
+    font-size: 14px !important;
+  }
+
+  #serviceViewer .viewer-title span {
+    font-size: 11px !important;
+  }
+
+  #serviceViewer .viewer-btn {
+    padding: 8px 11px !important;
+    font-size: 12px !important;
+  }
+
+  #serviceViewer .viewer-note {
+    display: none !important;
+  }
+}
+
+@supports not (height: 100dvh) {
+  #serviceViewer.service-viewer {
+    height: calc(100vh - 76px) !important;
+  }
+}
+
 </style>
+
+<style id="sidokuasn-digital-modern-ui">
+/* =========================================================
+   SIDOKUASN DIGITAL MODERN UI
+   Visual-only enhancement. Existing login/service logic is preserved.
+   ========================================================= */
+:root{
+  --digital-green:#16803a;
+  --digital-green-2:#35b85a;
+  --digital-ink:#0d2d1c;
+  --digital-line:rgba(22,128,58,.13);
+  --digital-glow:rgba(44,184,88,.22);
+}
+
+/* ---------- LOGIN: premium digital access screen ---------- */
+.login-overlay{
+  background-color:#071b11 !important;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(57,184,90,.28), transparent 30%),
+    radial-gradient(circle at 85% 75%, rgba(22,128,58,.30), transparent 32%),
+    linear-gradient(135deg,rgba(3,22,13,.94),rgba(7,42,24,.82)),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.035) 0 1px,transparent 1px 72px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 72px) !important;
+  background-size:auto !important;
+  background-position:center !important;
+  background-attachment:fixed !important;
+  overflow:hidden;
+}
+.login-overlay::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.42;
+  background-image:linear-gradient(rgba(74,211,111,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(74,211,111,.08) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,transparent 0%,black 30%,black 72%,transparent 100%);
+}
+.login-overlay::after{
+  content:"SIDOKUASN  •  DIGITAL ASN SERVICE";
+  position:absolute;
+  left:28px;
+  bottom:22px;
+  color:rgba(222,255,232,.55);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:2.4px;
+  pointer-events:none;
+}
+.login-center-wrapper{
+  position:relative !important;
+  isolation:isolate;
+  max-width:450px !important;
+  padding:42px 38px 32px !important;
+  border:1px solid rgba(183,255,204,.22) !important;
+  border-radius:28px !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(248,255,250,.88)) !important;
+  box-shadow:0 35px 90px rgba(0,0,0,.42),0 0 0 1px rgba(53,184,90,.12),0 0 55px rgba(53,184,90,.16) !important;
+  backdrop-filter:blur(24px) saturate(135%) !important;
+  -webkit-backdrop-filter:blur(24px) saturate(135%) !important;
+  transform:none !important;
+}
+.login-center-wrapper::before{
+  content:"SECURE DIGITAL ACCESS";
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  position:absolute;
+  top:-13px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:6px 12px;
+  border:1px solid rgba(53,184,90,.25);
+  border-radius:999px;
+  background:#effcf2;
+  color:#16803a;
+  box-shadow:0 8px 22px rgba(22,128,58,.13);
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:1.35px;
+  white-space:nowrap;
+}
+.login-center-wrapper::after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:-75px;
+  top:-75px;
+  border-radius:50%;
+  border:1px solid rgba(53,184,90,.13);
+  box-shadow:0 0 0 18px rgba(53,184,90,.035),0 0 0 36px rgba(53,184,90,.025);
+  pointer-events:none;
+}
+.brand-icon-login{
+  width:88px !important;
+  height:88px !important;
+  margin:0 auto 14px !important;
+  padding:10px;
+  border-radius:24px;
+  background-color:#f0fbf3;
+  box-shadow:0 15px 35px rgba(22,128,58,.15),inset 0 0 0 1px rgba(22,128,58,.08);
+  animation:kedip 2.8s infinite ease-in-out !important;
+}
+.login-center-wrapper h2{
+  color:#092d1a !important;
+  font-size:29px !important;
+  font-weight:850 !important;
+  letter-spacing:-.9px !important;
+  margin-bottom:7px !important;
+}
+.login-center-wrapper > p{
+  color:#668072 !important;
+  font-size:13px !important;
+  margin-bottom:28px !important;
+}
+.login-center-wrapper .input-group{margin-bottom:17px !important}
+.login-center-wrapper .input-group label{
+  color:#294838 !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  letter-spacing:.15px;
+}
+.login-center-wrapper .input-group input{
+  height:51px;
+  border:1px solid #d7e8dc !important;
+  border-radius:15px !important;
+  background:rgba(247,251,248,.9) !important;
+  box-shadow:inset 0 1px 2px rgba(16,55,31,.025) !important;
+}
+.login-center-wrapper .input-group input:hover{border-color:#b9d9c1 !important}
+.login-center-wrapper .input-group input:focus{
+  border-color:#35a955 !important;
+  box-shadow:0 0 0 4px rgba(53,184,90,.11),0 8px 22px rgba(22,128,58,.07) !important;
+}
+.login-submit-btn{
+  min-height:53px !important;
+  margin-top:9px !important;
+  border-radius:15px !important;
+  background:linear-gradient(135deg,#116b31 0%,#16803a 48%,#39b85a 100%) !important;
+  box-shadow:0 13px 28px rgba(22,128,58,.22),inset 0 1px 0 rgba(255,255,255,.18) !important;
+  letter-spacing:.15px;
+}
+.login-submit-btn:hover{transform:translateY(-2px) !important;box-shadow:0 17px 32px rgba(22,128,58,.28),inset 0 1px 0 rgba(255,255,255,.2) !important}
+.footer-text{margin-top:22px !important;color:#71877a !important;background:none !important;-webkit-text-fill-color:initial !important;font-size:10.5px !important;letter-spacing:.15px}
+
+/* ---------- HEADER: glass digital navigation ---------- */
+header{
+  background:rgba(248,253,249,.91) !important;
+  border-bottom:1px solid rgba(22,128,58,.10) !important;
+  box-shadow:0 8px 28px rgba(14,64,32,.07) !important;
+}
+header::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-1px;height:2px;
+  background:linear-gradient(90deg,transparent 0%,#16803a 22%,#49c969 50%,#16803a 78%,transparent 100%);
+  opacity:.7;
+}
+.nav{gap:18px !important}
+.brand{gap:11px !important;position:relative}
+.logo{
+  width:46px !important;height:46px !important;border-radius:15px !important;
+  background:linear-gradient(145deg,#0d5b2b,#16803a 55%,#45c963) !important;
+  box-shadow:0 9px 22px rgba(22,128,58,.20),inset 0 1px 0 rgba(255,255,255,.28) !important;
+  position:relative;
+}
+.logo::after{
+  content:"";position:absolute;inset:4px;border:1px solid rgba(255,255,255,.2);border-radius:11px;
+}
+.brand-title{color:#0c3020 !important;line-height:1.05}
+.brand-subtitle{color:#71877a !important;letter-spacing:.05px}
+nav{gap:5px !important}
+nav > a:not(.btn-logout-modern){
+  position:relative;
+  padding:10px 12px !important;
+  border-radius:12px !important;
+  color:#486052 !important;
+  font-weight:750 !important;
+  transition:.22s ease !important;
+}
+nav > a:not(.btn-logout-modern)::after{
+  content:"";position:absolute;left:12px;right:12px;bottom:6px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,#16803a,#54c96d);transform:scaleX(0);transform-origin:center;transition:.22s ease;
+}
+nav > a:not(.btn-logout-modern):hover{color:#126b32 !important;background:rgba(22,128,58,.055) !important;transform:translateY(-1px)}
+nav > a:not(.btn-logout-modern):hover::after{transform:scaleX(1)}
+.user-session{
+  min-height:39px !important;
+  padding:5px 11px 5px 6px !important;
+  border:1px solid rgba(22,128,58,.13) !important;
+  border-radius:13px !important;
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(238,250,241,.92)) !important;
+  box-shadow:0 6px 18px rgba(22,128,58,.08) !important;
+}
+.user-session-icon{background:linear-gradient(135deg,#dff6e5,#c9eed3) !important;color:#126b32 !important}
+.user-session-name{font-size:12px !important;font-weight:800 !important;color:#19472d !important}
+.btn-logout-modern{
+  display:inline-flex !important;align-items:center !important;gap:7px !important;
+  min-height:39px !important;padding:6px 11px !important;
+  border:1px solid rgba(220,38,38,.12) !important;border-radius:13px !important;
+  background:linear-gradient(135deg,#fff,#fff7f7) !important;
+  color:#b42323 !important;box-shadow:0 5px 15px rgba(180,35,35,.05) !important;
+}
+.btn-logout-modern:hover{background:#fff0f0 !important;transform:translateY(-1px)}
+
+/* ---------- SERVICES: modern digital cards ---------- */
+#layanan{
+  position:relative;
+  background:linear-gradient(180deg,#f7fbf8 0%,#ffffff 46%,#f8fcf9 100%);
+  overflow:hidden;
+}
+#layanan::before{
+  content:"";position:absolute;width:420px;height:420px;left:-210px;top:80px;border-radius:50%;background:rgba(53,184,90,.055);filter:blur(4px);pointer-events:none;
+}
+#layanan .section-head,#layanan .search,#layanan #serviceGrid{position:relative;z-index:1}
+#layanan .section-head h2{letter-spacing:-.7px !important}
+#layanan .search{max-width:700px !important;margin:24px auto 32px !important}
+#layanan .search input{
+  height:52px !important;border-radius:17px !important;padding-left:48px !important;
+  border:1px solid rgba(22,128,58,.13) !important;background:rgba(255,255,255,.92) !important;
+  box-shadow:0 10px 30px rgba(22,65,38,.07) !important;
+}
+#layanan .search input:focus{border-color:#82c996 !important;box-shadow:0 0 0 4px rgba(53,184,90,.08),0 12px 32px rgba(22,65,38,.08) !important}
+#layanan .search span{color:#16803a;opacity:.75}
+#serviceGrid{gap:18px !important}
+#serviceGrid .service{
+  position:relative;overflow:hidden;min-height:165px;
+  padding:23px 21px 21px !important;
+  border:1px solid rgba(22,128,58,.105) !important;
+  border-radius:21px !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(248,252,249,.94)) !important;
+  box-shadow:0 8px 24px rgba(21,67,38,.055) !important;
+}
+#serviceGrid .service::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#16803a,#5bd174);transform:scaleX(.35);transform-origin:left;transition:.25s ease;
+}
+#serviceGrid .service::after{
+  content:"";position:absolute;width:95px;height:95px;right:-44px;top:-44px;border-radius:50%;background:rgba(53,184,90,.06);transition:.3s ease;
+}
+#serviceGrid .service:hover{
+  transform:translateY(-6px) !important;
+  border-color:rgba(53,184,90,.28) !important;
+  box-shadow:0 18px 38px rgba(22,80,43,.11),0 0 0 1px rgba(53,184,90,.04) !important;
+}
+#serviceGrid .service:hover::before{transform:scaleX(1)}
+#serviceGrid .service:hover::after{transform:scale(1.35)}
+#serviceGrid .icon{
+  position:relative;z-index:2;width:50px !important;height:50px !important;border-radius:16px !important;
+  background:linear-gradient(145deg,#e9f9ed,#d6f3df) !important;
+  color:#126b32 !important;font-size:21px !important;
+  box-shadow:inset 0 0 0 1px rgba(22,128,58,.08),0 8px 16px rgba(22,128,58,.08) !important;
+}
+#serviceGrid .service h3{font-size:16px !important;font-weight:800 !important;color:#143c27 !important;position:relative;z-index:2}
+#serviceGrid .service p{line-height:1.55 !important;color:#708378 !important;position:relative;z-index:2}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1100px){
+  .nav{gap:10px !important}
+  nav > a:not(.btn-logout-modern){padding:9px 9px !important;font-size:13px !important}
+}
+@media(max-width:900px){
+  .login-center-wrapper{max-width:430px !important;padding:38px 28px 28px !important}
+  nav > a:not(.btn-logout-modern){padding:9px 10px !important}
+  #serviceGrid{grid-template-columns:repeat(2,1fr) !important}
+}
+@media(max-width:560px){
+  .login-overlay{padding:15px !important}
+  .login-center-wrapper{padding:35px 21px 25px !important;border-radius:23px !important}
+  .login-center-wrapper h2{font-size:25px !important}
+  .brand-icon-login{width:78px !important;height:78px !important;border-radius:20px !important}
+  .login-overlay::after{left:15px;bottom:13px;font-size:8px;letter-spacing:1.5px}
+  #serviceGrid{grid-template-columns:1fr !important}
+  #serviceGrid .service{min-height:145px !important}
+}
+</style>
+
 </head>
 <body>
 
@@ -639,8 +1177,12 @@ main{width:100%}
     <nav id="nav">
      <a href="#beranda">Beranda</a>
      <a href="#layanan">Layanan Kepegawaian</a>
-     <a href="#informasi">Informasi Teknis</a>
+     <a href="#informasi" class="nav-informasi">Informasi Teknis</a>
      <a href="#bantuan">Bantuan</a>
+     <div class="user-session" id="userSession" aria-label="Pengguna yang sedang login">
+      <span class="user-session-icon">👤</span>
+      <span class="user-session-name" id="userSessionName">Pengguna</span>
+     </div>
      <a href="#" class="btn-logout-modern" style="font-size: 16px; font-weight: bold;" onclick="logoutPortal()">Logout
     <img src="https://cdn.phototourl.com/free/2026-09-16-eca567ba-8dd5-4ecb-9c7b-655db8dd3b2e.png" alt="Logout" style="width: 30px; height: 30px; vertical-align: middle;">
     </a>
@@ -1086,6 +1628,51 @@ function jalankanLogin() {
 }
 
 // FUNGSI MEMBUKA KUNCI HALAMAN TANPA JEDA TAMBAHAN
+function getLoggedInUser() {
+    try {
+        const raw = sessionStorage.getItem("sidokuasn_user");
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+        console.warn("Data pengguna tidak dapat dibaca:", e);
+        return null;
+    }
+}
+
+function getUserDisplayName(user) {
+    if (!user) return "Pengguna ASN";
+
+    const candidates = [
+        user.nama,
+        user.namaLengkap,
+        user.nama_lengkap,
+        user.name,
+        user.fullName,
+        user.NAMA,
+        user.Nama
+    ];
+
+    const name = candidates.find(value =>
+        value !== undefined &&
+        value !== null &&
+        String(value).trim() !== ""
+    );
+
+    if (name) return String(name).trim();
+
+    const nip = user.nip || user.NIP || user.username || user.userName;
+    return nip ? String(nip).trim() : "Pengguna ASN";
+}
+
+function updateUserDisplay() {
+    const nameElement = document.getElementById("userSessionName");
+    const sessionElement = document.getElementById("userSession");
+    if (!nameElement || !sessionElement) return;
+
+    const user = getLoggedInUser();
+    nameElement.textContent = getUserDisplayName(user);
+    sessionElement.title = "Login sebagai " + getUserDisplayName(user);
+}
+
 function unlockPortal() {
     const overlay = document.getElementById("authOverlay");
     const container = document.getElementById("appContainer");
@@ -1095,6 +1682,9 @@ function unlockPortal() {
     // Tampilkan aplikasi segera. CSS opacity tetap digunakan untuk transisi halus.
     container.style.display = "block";
     container.style.opacity = "1";
+
+    // Tampilkan nama pengguna dari response.user yang disimpan saat login.
+    updateUserDisplay();
 
     overlay.classList.add("hidden");
 
@@ -1106,14 +1696,26 @@ function unlockPortal() {
 
 function logoutPortal() {
   sessionStorage.removeItem('sidokuasn_auth');
+  sessionStorage.removeItem('sidokuasn_user');
   window.location.reload();
 }
 
 function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
 
+function lockPageScroll(){
+  document.documentElement.classList.add('service-open');
+  document.body.classList.add('service-open');
+}
+
+function unlockPageScroll(){
+  document.documentElement.classList.remove('service-open');
+  document.body.classList.remove('service-open');
+}
+
 function openService(serviceName){
   const service=services[serviceName];
   if(!service)return;
+
   currentService=serviceName;
 
   const grid=document.getElementById('serviceGrid');
@@ -1125,10 +1727,14 @@ function openService(serviceName){
   document.getElementById('viewerTitle').textContent=service.title;
   document.getElementById('viewerIcon').textContent=service.icon;
   document.getElementById('viewerStatus').textContent='Memuat aplikasi...';
+
   noFrame.classList.remove('show');
   loading.classList.remove('hidden');
+
   grid.style.display='none';
   viewer.classList.add('show');
+
+  lockPageScroll();
 
   if(!service.url){
     loading.classList.add('hidden');
@@ -1139,20 +1745,31 @@ function openService(serviceName){
     frame.src=service.url;
   }
 
-  requestAnimationFrame(()=>viewer.scrollIntoView({behavior:'smooth',block:'start'}));
+  /* Popup langsung berada di bawah header tanpa menggeser halaman. */
 }
 
 function closeService(){
   const viewer=document.getElementById('serviceViewer');
   const grid=document.getElementById('serviceGrid');
   const frame=document.getElementById('serviceFrame');
+
   viewer.classList.remove('show');
   grid.style.display='grid';
   frame.removeAttribute('src');
+
   document.getElementById('frameLoading').classList.remove('hidden');
   document.getElementById('noFrame').classList.remove('show');
+
   currentService=null;
-  document.getElementById('layanan').scrollIntoView({behavior:'smooth',block:'start'});
+
+  unlockPageScroll();
+
+  const layanan=document.getElementById('layanan');
+  if(layanan){
+    requestAnimationFrame(()=>{
+      layanan.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
 }
 
 function serviceKey(e,serviceName){
