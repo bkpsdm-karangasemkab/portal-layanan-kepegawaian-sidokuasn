@@ -1112,6 +1112,307 @@ nav > a:not(.btn-logout-modern):hover::after{transform:scaleX(1)}
 }
 </style>
 
+
+<style id="sidokuasn-session-mobile-enhancement">
+/* =========================================================
+   SIDOKUASN SESSION TIMEOUT + BLOGGER MOBILE ENHANCEMENT
+   Penambahan aman: tidak mengubah ID/fungsi layanan yang ada.
+   ========================================================= */
+#sessionTimeoutModal{
+  position:fixed;inset:0;z-index:100000;display:none;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(4,20,12,.58);backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+#sessionTimeoutModal.show{display:flex}
+.session-timeout-card{
+  width:min(430px,100%);padding:28px 24px 22px;
+  border:1px solid rgba(53,184,90,.18);border-radius:24px;
+  background:linear-gradient(145deg,#fff,#f5fbf6);
+  box-shadow:0 30px 80px rgba(0,0,0,.30),0 0 35px rgba(53,184,90,.14);
+  text-align:center;animation:sessionCardIn .25s ease-out;
+}
+@keyframes sessionCardIn{
+  from{opacity:0;transform:translateY(10px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.session-timeout-icon{
+  width:58px;height:58px;margin:0 auto 13px;display:grid;place-items:center;
+  border-radius:18px;background:#e9f8ed;color:#16803a;font-size:27px;
+  box-shadow:inset 0 0 0 1px rgba(22,128,58,.08),0 10px 25px rgba(22,128,58,.10);
+}
+.session-timeout-card h3{margin:0 0 7px;color:#103b24;font-size:20px;font-weight:850}
+.session-timeout-card p{margin:0;color:#647b6d;font-size:13px;line-height:1.6}
+.session-countdown{
+  display:inline-flex;align-items:center;justify-content:center;min-width:52px;
+  margin:14px 0 18px;padding:7px 12px;border-radius:999px;
+  background:#fff1f1;color:#c62828;border:1px solid #ffd3d3;
+  font-weight:850;font-size:14px;
+}
+.session-timeout-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.session-timeout-actions button{
+  min-height:44px;padding:10px 17px;border-radius:13px;
+  border:1px solid #dceee1;font-weight:800;cursor:pointer;
+}
+.session-stay-btn{
+  color:#fff;border-color:#16803a!important;
+  background:linear-gradient(135deg,#16803a,#39b85a);
+  box-shadow:0 9px 20px rgba(22,128,58,.18);
+}
+.session-logout-btn{color:#b42323;background:#fff7f7;border-color:#f2d2d2!important}
+
+html,body{width:100%;max-width:100%;overflow-x:hidden!important;-webkit-text-size-adjust:100%}
+body{min-width:0!important;margin:0}
+#appContainer{width:100%;max-width:100%;min-width:0}
+.container{width:min(100% - 30px,1850px)!important;max-width:1850px!important}
+img,iframe,video{max-width:100%}
+button,a,input,textarea{-webkit-tap-highlight-color:transparent}
+.brand{min-width:0;flex:1 1 auto}
+.brand-title{min-width:0;max-width:min(62vw,720px);overflow:hidden}
+.brand-subtitle{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.login-overlay{
+  min-height:100dvh;min-height:100svh;box-sizing:border-box;
+  overflow-y:auto!important;overscroll-behavior:contain;
+  padding:max(18px,env(safe-area-inset-top)) max(15px,env(safe-area-inset-right))
+          max(18px,env(safe-area-inset-bottom)) max(15px,env(safe-area-inset-left));
+}
+.login-center-wrapper{box-sizing:border-box;margin:auto}
+
+#serviceViewer.service-viewer{
+  width:100vw!important;max-width:100vw!important;left:0!important;right:0!important;
+  top:76px!important;height:calc(100dvh - 76px)!important;
+  height:calc(100svh - 76px)!important;
+}
+#serviceViewer .viewer-head{
+  padding-left:max(12px,env(safe-area-inset-left))!important;
+  padding-right:max(12px,env(safe-area-inset-right))!important;
+}
+#serviceViewer .iframe-wrap{min-width:0!important;-webkit-overflow-scrolling:touch}
+
+@media(max-width:900px){
+  .container{width:min(100% - 24px,1850px)!important}
+  .nav{height:70px!important}
+  nav{max-height:calc(100dvh - 86px);overflow-y:auto;overscroll-behavior:contain}
+  .hero{padding-top:88px!important}
+  .hero-grid{gap:28px!important}
+  .hero-image-wrap{margin:0 auto!important}
+  .help{width:100%;box-sizing:border-box}
+}
+@media(max-width:560px){
+  .container{width:calc(100% - 20px)!important;padding-left:0!important;padding-right:0!important}
+  .nav{height:64px!important;gap:7px!important}
+  .brand-title{font-size:14px!important;max-width:calc(100vw - 112px)}
+  .brand-subtitle{font-size:9.5px!important;line-height:1.2!important}
+  .menu{flex:0 0 auto;padding:9px!important;min-width:42px;min-height:42px}
+  .hero{padding-top:78px!important;padding-bottom:35px!important}
+  h1{font-size:clamp(31px,10vw,44px)!important;letter-spacing:-1.5px!important}
+  .hero p{font-size:14px!important}
+  .actions{width:100%;gap:9px}
+  .actions .btn{width:100%;justify-content:center}
+  .hero-card{border-radius:22px!important}
+  .hero-sidoku-image{max-height:260px!important}
+  .section{padding:54px 0!important}
+  .section-head{margin-bottom:24px!important}
+  h2{font-size:28px!important}
+  .search input{height:50px!important;font-size:14px!important}
+  #serviceGrid .service{width:100%!important;min-height:0!important;padding:18px!important}
+  #serviceViewer.service-viewer{
+    top:64px!important;height:calc(100dvh - 64px)!important;height:calc(100svh - 64px)!important;
+  }
+  #serviceViewer .viewer-head{min-height:58px!important;padding-top:8px!important;padding-bottom:8px!important}
+  #serviceViewer .viewer-actions{width:auto!important}
+  #serviceViewer .viewer-btn{min-height:40px!important;padding:8px 10px!important}
+  #serviceViewer .viewer-title strong{
+    max-width:55vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  .panel{padding:18px!important}
+  .help{padding:28px 16px!important;border-radius:22px!important}
+  .session-timeout-card{padding:24px 18px 18px;border-radius:21px}
+  .session-timeout-actions{flex-direction:column}
+  .session-timeout-actions button{width:100%}
+}
+@media(max-height:520px) and (orientation:landscape){
+  .login-overlay{align-items:flex-start!important}
+  .login-center-wrapper{margin:24px auto!important}
+  .brand-icon-login{width:58px!important;height:58px!important}
+  #serviceViewer .viewer-head{min-height:54px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    scroll-behavior:auto!important;transition-duration:.01ms!important;
+  }
+}
+</style>
+
+
+<style id="sidokuasn-final-popup-session-fix">
+/* =========================================================
+   SIDOKUASN FINAL FIX
+   A. Layanan = popup fullscreen elegan, tanpa header internal
+   B. Hanya tombol EXIT di kanan atas
+   C. Sesi login persisten lintas-tab melalui localStorage
+   ========================================================= */
+
+/* ---------- FULLSCREEN SERVICE POPUP ---------- */
+html.service-open,
+body.service-open{
+  overflow:hidden !important;
+  width:100% !important;
+  height:100% !important;
+  overscroll-behavior:none !important;
+}
+
+#serviceViewer.service-viewer,
+#serviceViewer.service-viewer.show{
+  position:fixed !important;
+  inset:0 !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  width:100vw !important;
+  max-width:none !important;
+  height:100dvh !important;
+  min-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  overflow:hidden !important;
+  background:#fff !important;
+  z-index:99990 !important;
+  box-shadow:0 0 70px rgba(0,0,0,.28) !important;
+}
+
+/* Header internal layanan disamarkan: tidak ada judul/status/header visual. */
+#serviceViewer .viewer-head{
+  position:absolute !important;
+  top:0 !important;
+  right:0 !important;
+  left:0 !important;
+  width:100% !important;
+  height:0 !important;
+  min-height:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  pointer-events:none !important;
+  z-index:99993 !important;
+}
+
+#serviceViewer .viewer-title,
+#serviceViewer .viewer-note{
+  display:none !important;
+}
+
+/* EXIT: satu-satunya elemen kontrol yang terlihat. */
+#serviceViewer .viewer-actions{
+  position:fixed !important;
+  top:max(16px, env(safe-area-inset-top)) !important;
+  right:max(16px, env(safe-area-inset-right)) !important;
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  pointer-events:auto !important;
+  z-index:99995 !important;
+}
+
+#serviceViewer .viewer-btn{
+  width:48px !important;
+  height:48px !important;
+  min-width:48px !important;
+  min-height:48px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:1px solid rgba(255,255,255,.72) !important;
+  border-radius:50% !important;
+  display:grid !important;
+  place-items:center !important;
+  background:rgba(8,39,22,.78) !important;
+  color:#fff !important;
+  font-size:20px !important;
+  line-height:1 !important;
+  font-weight:700 !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.25),0 0 0 5px rgba(255,255,255,.10) !important;
+  backdrop-filter:blur(14px) saturate(130%) !important;
+  -webkit-backdrop-filter:blur(14px) saturate(130%) !important;
+  cursor:pointer !important;
+  transition:transform .22s ease, background .22s ease, box-shadow .22s ease !important;
+}
+
+#serviceViewer .viewer-btn:hover{
+  transform:translateY(-2px) scale(1.06) !important;
+  background:rgba(22,128,58,.95) !important;
+  box-shadow:0 14px 34px rgba(22,128,58,.32),0 0 0 5px rgba(255,255,255,.13) !important;
+}
+
+#serviceViewer .viewer-btn:active{
+  transform:scale(.96) !important;
+}
+
+#serviceViewer .iframe-wrap{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#fff !important;
+}
+
+#serviceViewer .service-frame{
+  position:absolute !important;
+  inset:0 !important;
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:#fff !important;
+}
+
+#serviceViewer .frame-loading{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:99991 !important;
+}
+
+/* Layar error tetap berada di atas iframe. */
+#serviceViewer .no-frame{
+  position:absolute !important;
+  inset:0 !important;
+  z-index:99992 !important;
+}
+
+/* ---------- LOGIN PERSISTENCE / MULTI-TAB ---------- */
+/* localStorage dipakai oleh fungsi sesi yang sudah ada di file.
+   Sinkronisasi perubahan sesi antar-tab dilakukan melalui storage event. */
+@media(max-width:560px){
+  #serviceViewer .viewer-actions{
+    top:max(10px, env(safe-area-inset-top)) !important;
+    right:max(10px, env(safe-area-inset-right)) !important;
+  }
+  #serviceViewer .viewer-btn{
+    width:44px !important;
+    height:44px !important;
+    min-width:44px !important;
+    min-height:44px !important;
+    font-size:18px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1175,6 +1476,21 @@ nav > a:not(.btn-logout-modern):hover::after{transform:scaleX(1)}
         
         <div class="footer-text">&copy; 2026 SIDOKUASN - BKPSDM Kab. Karangasem </div>
     </div>  
+  </div>
+</div>
+
+
+<!-- SESSION TIMEOUT MODAL -->
+<div id="sessionTimeoutModal" aria-hidden="true">
+  <div class="session-timeout-card" role="dialog" aria-modal="true" aria-labelledby="sessionTimeoutTitle">
+    <div class="session-timeout-icon">⏱</div>
+    <h3 id="sessionTimeoutTitle">Sesi Anda akan berakhir</h3>
+    <p>Anda tidak terdeteksi melakukan aktivitas pada aplikasi. Demi keamanan akun, sesi akan berakhir otomatis.</p>
+    <div class="session-countdown" id="sessionCountdown">02:00</div>
+    <div class="session-timeout-actions">
+      <button type="button" class="session-stay-btn" onclick="perpanjangSesi()">Tetap Masuk</button>
+      <button type="button" class="session-logout-btn" onclick="akhiriSesi('manual')">Logout Sekarang</button>
+    </div>
   </div>
 </div>
 
@@ -1288,7 +1604,7 @@ nav > a:not(.btn-logout-modern):hover::after{transform:scaleX(1)}
        <div><strong id="viewerTitle">Layanan</strong><span id="viewerStatus">Memuat aplikasi...</span></div>
       </div>
       <div class="viewer-actions">
-       <button class="viewer-btn" onclick="closeService()">← Daftar Layanan</button>
+       <button class="viewer-btn" type="button" aria-label="Tutup layanan" title="Tutup layanan" onclick="closeService()">✕</button>
        </div>
      </div>
      <div class="iframe-wrap">
@@ -1499,15 +1815,35 @@ const services = {
 
 let currentService = null;
 
-// CEK STATUS LOGIN SAAT HALAMAN DIMUAT
+// CEK STATUS LOGIN SAAT HALAMAN DIMUAT + VALIDASI SESI
 document.addEventListener("DOMContentLoaded", () => {
-  const isLoggedIn = sessionStorage.getItem('sidokuasn_auth');
+  const isLoggedIn = localStorage.getItem('sidokuasn_auth');
+
+  if (isLoggedIn === 'true' && !sesiMasihValid()) {
+    akhiriSesi('expired');
+    return;
+  }
+
   if (isLoggedIn === 'true') {
     unlockPortal();
+    mulaiSesiAktif(true);
   } else {
+    bersihkanPesanSuksesLogin();
     document.getElementById('authOverlay').style.display = 'flex';
   }
 });
+
+/* =========================================================
+   PEMBERSIH STATUS LOGIN
+   Pesan sukses hanya boleh tampil sesaat setelah login berhasil.
+   Saat logout/sesi berakhir, pesan sukses selalu dibersihkan.
+   ========================================================= */
+function bersihkanPesanSuksesLogin(){
+  const suksesDiv=document.getElementById("pesan-sukses");
+  const suksesText=document.getElementById("sukses-text");
+  if(suksesDiv) suksesDiv.style.display="none";
+  if(suksesText) suksesText.textContent="";
+}
 
 // FUNGSI TOGGLE PASSWORD
 function togglePasswordVisibility() {
@@ -1611,10 +1947,13 @@ function jalankanLogin() {
 
         // Simpan sesi dan data pengguna agar tidak perlu login ulang saat halaman
         // masih berada pada tab browser yang sama.
-        sessionStorage.setItem("sidokuasn_auth", "true");
+        localStorage.setItem("sidokuasn_auth", "true");
         if (response.user) {
-            sessionStorage.setItem("sidokuasn_user", JSON.stringify(response.user));
+            localStorage.setItem("sidokuasn_user", JSON.stringify(response.user));
         }
+
+        // Mulai sesi berbasis aktivitas setelah login berhasil.
+        mulaiSesiAktif();
 
         document.getElementById("sukses-text").innerText =
             response.pesan || "Login berhasil.";
@@ -1649,7 +1988,7 @@ function jalankanLogin() {
 // FUNGSI MEMBUKA KUNCI HALAMAN TANPA JEDA TAMBAHAN
 function getLoggedInUser() {
     try {
-        const raw = sessionStorage.getItem("sidokuasn_user");
+        const raw = localStorage.getItem("sidokuasn_user");
         return raw ? JSON.parse(raw) : null;
     } catch (e) {
         console.warn("Data pengguna tidak dapat dibaca:", e);
@@ -1692,6 +2031,195 @@ function updateUserDisplay() {
     sessionElement.title = "Login sebagai " + getUserDisplayName(user);
 }
 
+
+/* =========================================================
+   SESSION MANAGER — AUTO LOGOUT KARENA TIDAK ADA AKTIVITAS
+   Batas tidak aktif: 15 menit
+   Peringatan: 1 menit sebelum sesi berakhir
+   ========================================================= */
+const SIDOKU_SESSION_LIMIT = 15 * 60 * 1000;
+const SIDOKU_WARNING_LIMIT = 1 * 60 * 1000;
+const SIDOKU_ACTIVITY_KEY = "sidokuasn_last_activity";
+
+let sidokuActivityTimer = null;
+let sidokuCountdownTimer = null;
+let sidokuWarningVisible = false;
+let sidokuLastActivityEvent = 0;
+
+function waktuAktivitasSekarang(){ return Date.now(); }
+
+function simpanAktivitas(){
+  try{ localStorage.setItem(SIDOKU_ACTIVITY_KEY,String(waktuAktivitasSekarang())); }
+  catch(e){ console.warn("Timestamp sesi tidak dapat disimpan:",e); }
+}
+function ambilAktivitasTerakhir(){
+  const value=Number(localStorage.getItem(SIDOKU_ACTIVITY_KEY));
+  return Number.isFinite(value)&&value>0?value:0;
+}
+function sesiMasihValid(){
+  if(localStorage.getItem("sidokuasn_auth")!=="true") return false;
+  const last=ambilAktivitasTerakhir();
+  if(!last){ simpanAktivitas(); return true; }
+  return waktuAktivitasSekarang()-last<SIDOKU_SESSION_LIMIT;
+}
+function catatAktivitas(force=false){
+  if(localStorage.getItem("sidokuasn_auth")!=="true") return;
+  const now=waktuAktivitasSekarang();
+  if(!force && now-sidokuLastActivityEvent<1000) return;
+  sidokuLastActivityEvent=now;
+  if(sidokuWarningVisible){ perpanjangSesi(); return; }
+  simpanAktivitas();
+}
+function mulaiSesiAktif(fromExistingSession=false){
+  clearInterval(sidokuActivityTimer); clearInterval(sidokuCountdownTimer);
+  if(localStorage.getItem("sidokuasn_auth")!=="true") return;
+  if(!fromExistingSession || !ambilAktivitasTerakhir()) simpanAktivitas();
+  sidokuWarningVisible=false; sembunyikanPeringatanSesi();
+  sidokuActivityTimer=setInterval(periksaSesi,1000);
+}
+function periksaSesi(){
+  if(localStorage.getItem("sidokuasn_auth")!=="true"){
+    hentikanPemantauanSesi(); return;
+  }
+  const last=ambilAktivitasTerakhir();
+  if(!last){ simpanAktivitas(); return; }
+  const remaining=SIDOKU_SESSION_LIMIT-(waktuAktivitasSekarang()-last);
+  if(remaining<=0){ akhiriSesi("expired"); return; }
+  if(remaining<=SIDOKU_WARNING_LIMIT) tampilkanPeringatanSesi(remaining);
+}
+function tampilkanPeringatanSesi(remaining){
+  const modal=document.getElementById("sessionTimeoutModal");
+  const countdown=document.getElementById("sessionCountdown");
+  if(!modal||!countdown) return;
+  sidokuWarningVisible=true;
+  modal.classList.add("show"); modal.setAttribute("aria-hidden","false");
+  updateCountdown(remaining);
+  clearInterval(sidokuCountdownTimer);
+  sidokuCountdownTimer=setInterval(()=>{
+    const last=ambilAktivitasTerakhir();
+    const left=SIDOKU_SESSION_LIMIT-(waktuAktivitasSekarang()-last);
+    if(left<=0){ clearInterval(sidokuCountdownTimer); akhiriSesi("expired"); return; }
+    updateCountdown(left);
+  },1000);
+}
+function updateCountdown(milliseconds){
+  const countdown=document.getElementById("sessionCountdown");
+  if(!countdown) return;
+  const total=Math.max(0,Math.ceil(milliseconds/1000));
+  countdown.textContent=String(Math.floor(total/60)).padStart(2,"0")+":"+String(total%60).padStart(2,"0");
+}
+function perpanjangSesi(){
+  if(localStorage.getItem("sidokuasn_auth")!=="true") return;
+  simpanAktivitas(); sidokuLastActivityEvent=waktuAktivitasSekarang();
+  sidokuWarningVisible=false; sembunyikanPeringatanSesi();
+}
+function sembunyikanPeringatanSesi(){
+  const modal=document.getElementById("sessionTimeoutModal");
+  if(modal){ modal.classList.remove("show"); modal.setAttribute("aria-hidden","true"); }
+  clearInterval(sidokuCountdownTimer); sidokuCountdownTimer=null;
+}
+function hentikanPemantauanSesi(){
+  clearInterval(sidokuActivityTimer); clearInterval(sidokuCountdownTimer);
+  sidokuActivityTimer=null; sidokuCountdownTimer=null; sidokuWarningVisible=false;
+  sembunyikanPeringatanSesi();
+}
+function akhiriSesi(reason="expired"){
+  bersihkanPesanSuksesLogin();
+  hentikanPemantauanSesi();
+  localStorage.removeItem("sidokuasn_auth");
+  localStorage.removeItem("sidokuasn_user");
+  localStorage.removeItem(SIDOKU_ACTIVITY_KEY);
+
+  const viewer=document.getElementById("serviceViewer");
+  if(viewer) viewer.classList.remove("show");
+  if(typeof unlockPageScroll==="function") unlockPageScroll();
+
+  const app=document.getElementById("appContainer");
+  const overlay=document.getElementById("authOverlay");
+  if(app){ app.style.opacity="0"; app.style.display="none"; }
+  if(overlay){ overlay.style.display="flex"; overlay.classList.remove("hidden"); }
+
+  const errorDiv=document.getElementById("pesan-error");
+  const errorText=document.getElementById("error-text");
+  if(reason==="expired"&&errorDiv&&errorText){
+    errorText.innerText="Sesi berakhir karena tidak ada aktivitas selama 15 menit. Silakan login kembali.";
+    errorDiv.style.display="flex";
+  }
+  const password=document.getElementById("password");
+  if(password) password.value="";
+  const nip=document.getElementById("nip");
+  if(nip) setTimeout(()=>nip.focus(),120);
+}
+
+/* Aktivitas pengguna yang memperpanjang sesi. */
+["click","keydown","touchstart","touchmove","pointerdown","scroll"].forEach(eventName=>{
+  document.addEventListener(eventName,()=>catatAktivitas(false),{passive:true,capture:true});
+});
+document.addEventListener("visibilitychange",()=>{
+  if(document.visibilityState==="visible"&&localStorage.getItem("sidokuasn_auth")==="true") periksaSesi();
+});
+window.addEventListener("pageshow",()=>{
+  if(localStorage.getItem("sidokuasn_auth")==="true") periksaSesi();
+});
+
+
+/* =========================================================
+   SIDOKUASN MULTI-TAB SESSION SYNC
+   Login, aktivitas, perpanjangan, dan logout ikut tersinkron.
+   ========================================================= */
+window.addEventListener("storage", function(event){
+  if(event.key === "sidokuasn_auth"){
+    if(event.newValue === "true"){
+      if(typeof unlockPortal === "function") unlockPortal();
+      if(typeof mulaiSesiAktif === "function") mulaiSesiAktif(true);
+      if(typeof updateUserDisplay === "function") updateUserDisplay();
+    }else{
+      if(typeof bersihkanPesanSuksesLogin === "function") bersihkanPesanSuksesLogin();
+      if(typeof hentikanPemantauanSesi === "function") hentikanPemantauanSesi();
+      if(typeof unlockPageScroll === "function") unlockPageScroll();
+
+      const viewer = document.getElementById("serviceViewer");
+      if(viewer) viewer.classList.remove("show");
+
+      const app = document.getElementById("appContainer");
+      const overlay = document.getElementById("authOverlay");
+
+      if(app){
+        app.style.opacity = "0";
+        app.style.display = "none";
+      }
+      if(overlay){
+        overlay.style.display = "flex";
+        overlay.classList.remove("hidden");
+      }
+
+      const password = document.getElementById("password");
+      if(password) password.value = "";
+    }
+  }
+
+  if(event.key === "sidokuasn_user" &&
+     typeof updateUserDisplay === "function"){
+    updateUserDisplay();
+  }
+
+  if(event.key === "sidokuasn_last_activity" &&
+     localStorage.getItem("sidokuasn_auth") === "true"){
+    if(typeof periksaSesi === "function") periksaSesi();
+  }
+});
+
+/* Jika tab lama dibuka kembali dari background, baca status sesi terbaru. */
+window.addEventListener("focus", function(){
+  if(localStorage.getItem("sidokuasn_auth") === "true"){
+    if(typeof periksaSesi === "function") periksaSesi();
+    if(typeof updateUserDisplay === "function") updateUserDisplay();
+  }
+});
+
+function logoutPortal(){ akhiriSesi("manual"); }
+
+
 function unlockPortal() {
     const overlay = document.getElementById("authOverlay");
     const container = document.getElementById("appContainer");
@@ -1711,12 +2239,6 @@ function unlockPortal() {
     window.setTimeout(() => {
         overlay.style.display = "none";
     }, 500);
-}
-
-function logoutPortal() {
-  sessionStorage.removeItem('sidokuasn_auth');
-  sessionStorage.removeItem('sidokuasn_user');
-  window.location.reload();
 }
 
 function toggleMenu(){document.getElementById('nav').classList.toggle('open')}
@@ -1832,6 +2354,14 @@ function filterServices(){
 }
 document.querySelectorAll('nav a:not(.login)').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')))
 window.addEventListener('click',e=>{if(e.target.id==='modal')closeModal()})
+
+document.addEventListener("keydown", function(event){
+  if(event.key === "Escape" && document.getElementById("serviceViewer")?.classList.contains("show")){
+    event.preventDefault();
+    if(typeof closeService === "function") closeService();
+  }
+});
+
 </script>
 </body>
 </html>
