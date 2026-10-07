@@ -2034,10 +2034,10 @@ function updateUserDisplay() {
 
 /* =========================================================
    SESSION MANAGER — AUTO LOGOUT KARENA TIDAK ADA AKTIVITAS
-   Batas tidak aktif: 15 menit
+   Batas tidak aktif: 20 menit
    Peringatan: 1 menit sebelum sesi berakhir
    ========================================================= */
-const SIDOKU_SESSION_LIMIT = 15 * 60 * 1000;
+const SIDOKU_SESSION_LIMIT = 20 * 60 * 1000;
 const SIDOKU_WARNING_LIMIT = 1 * 60 * 1000;
 const SIDOKU_ACTIVITY_KEY = "sidokuasn_last_activity";
 
@@ -2142,7 +2142,7 @@ function akhiriSesi(reason="expired"){
   const errorDiv=document.getElementById("pesan-error");
   const errorText=document.getElementById("error-text");
   if(reason==="expired"&&errorDiv&&errorText){
-    errorText.innerText="Sesi berakhir karena tidak ada aktivitas selama 15 menit. Silakan login kembali.";
+    errorText.innerText="Sesi berakhir karena tidak ada aktivitas selama 20 menit. Silakan login kembali.";
     errorDiv.style.display="flex";
   }
   const password=document.getElementById("password");
