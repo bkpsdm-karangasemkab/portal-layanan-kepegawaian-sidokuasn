@@ -1267,15 +1267,15 @@ body.service-open{
 #serviceViewer.service-viewer,
 #serviceViewer.service-viewer.show{
   position:fixed !important;
-  inset:0 !important;
-  top:0 !important;
+  /* Area layanan dimulai tepat di bawah header tetap (76px desktop). */
+  top:76px !important;
   left:0 !important;
   right:0 !important;
   bottom:0 !important;
   width:100vw !important;
   max-width:none !important;
-  height:100dvh !important;
-  min-height:100dvh !important;
+  height:calc(100dvh - 76px) !important;
+  min-height:0 !important;
   margin:0 !important;
   padding:0 !important;
   border:0 !important;
@@ -1311,9 +1311,10 @@ body.service-open{
 
 /* EXIT: satu-satunya elemen kontrol yang terlihat. */
 #serviceViewer .viewer-actions{
+  /* Tombol keluar menempati posisi tombol Logout pada header. */
   position:fixed !important;
-  top:max(8px, env(safe-area-inset-top)) !important;
-  right:max(8px, env(safe-area-inset-right)) !important;
+  top:14px !important;
+  right:max(20px, env(safe-area-inset-right)) !important;
   width:auto !important;
   height:auto !important;
   margin:0 !important;
@@ -1345,6 +1346,32 @@ body.service-open{
   -webkit-backdrop-filter:blur(14px) saturate(130%) !important;
   cursor:pointer !important;
   transition:transform .22s ease, background .22s ease, box-shadow .22s ease !important;
+}
+
+
+/* Header tetap terlihat; tombol Logout disembunyikan sementara dan digantikan EXIT. */
+body.service-open header{z-index:1000 !important;}
+body.service-open nav .btn-logout-modern{
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+#serviceViewer .viewer-btn{
+  width:auto !important;
+  min-width:118px !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:0 15px !important;
+  border-radius:13px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+  font-size:13px !important;
+  white-space:nowrap !important;
+  letter-spacing:.1px !important;
+  background:linear-gradient(135deg,#0b4725,#16803a) !important;
+  border:1px solid rgba(255,255,255,.75) !important;
+  box-shadow:0 7px 20px rgba(10,64,31,.24),0 0 0 4px rgba(255,255,255,.18) !important;
 }
 
 #serviceViewer .viewer-btn:hover{
@@ -1398,19 +1425,150 @@ body.service-open{
 /* ---------- LOGIN PERSISTENCE / MULTI-TAB ---------- */
 /* localStorage dipakai oleh fungsi sesi yang sudah ada di file.
    Sinkronisasi perubahan sesi antar-tab dilakukan melalui storage event. */
+@media(max-width:900px){
+  #serviceViewer.service-viewer,
+  #serviceViewer.service-viewer.show{
+    top:64px !important;
+    height:calc(100dvh - 64px) !important;
+  }
+  #serviceViewer .viewer-actions{
+    top:10px !important;
+    right:max(12px, env(safe-area-inset-right)) !important;
+  }
+  #serviceViewer .viewer-btn{
+    min-width:108px !important;
+    height:40px !important;
+    min-height:40px !important;
+    padding:0 12px !important;
+    font-size:12px !important;
+  }
+}
 @media(max-width:560px){
   #serviceViewer .viewer-actions{
-    top:max(10px, env(safe-area-inset-top)) !important;
+    top:9px !important;
     right:max(10px, env(safe-area-inset-right)) !important;
   }
   #serviceViewer .viewer-btn{
-    width:44px !important;
-    height:44px !important;
-    min-width:44px !important;
-    min-height:44px !important;
-    font-size:18px !important;
+    min-width:100px !important;
+    height:38px !important;
+    min-height:38px !important;
+    padding:0 10px !important;
+    font-size:11px !important;
   }
 }
+</style>
+
+
+<style id="sidoku-modern-footer-faq-logout">
+/* Penyegaran visual terlokalisasi: logout, footer, dan FAQ. */
+nav .btn-logout-modern{
+  position:relative!important;overflow:hidden!important;isolation:isolate!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;
+  min-height:42px!important;padding:8px 16px!important;border-radius:14px!important;
+  border:1px solid rgba(218,70,70,.18)!important;
+  background:linear-gradient(135deg,#fff 0%,#fff7f7 55%,#ffeded 100%)!important;
+  color:#a51f2b!important;font-size:13px!important;font-weight:800!important;letter-spacing:.15px!important;
+  box-shadow:0 7px 18px rgba(133,27,39,.09),inset 0 1px 0 #fff!important;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important;
+}
+nav .btn-logout-modern::before{content:"⇥";display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:linear-gradient(135deg,#ffe2e2,#fff);font-size:17px;line-height:1;color:#b42332}
+nav .btn-logout-modern img{display:none!important}
+nav .btn-logout-modern:hover{transform:translateY(-2px)!important;border-color:rgba(218,70,70,.34)!important;box-shadow:0 11px 24px rgba(133,27,39,.15)!important;background:linear-gradient(135deg,#fff,#ffecec)!important}
+nav .btn-logout-modern:active{transform:scale(.98)!important}
+footer{position:relative!important;overflow:hidden!important;padding:58px 0 24px!important;color:#d6e4df!important;background:radial-gradient(ellipse at 8% 0%,rgba(41,151,83,.24),transparent 38%),radial-gradient(ellipse at 94% 100%,rgba(33,111,139,.18),transparent 35%),linear-gradient(135deg,#071b19 0%,#0b3026 48%,#0c2430 100%)!important;border-top:1px solid rgba(126,220,157,.25)!important}
+footer::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,black,transparent)}
+footer .container{position:relative;z-index:1}
+.footer-grid{gap:clamp(20px,3vw,42px)!important}
+footer .footer-grid>div{min-width:0}
+footer h3{font-size:24px!important;letter-spacing:.7px!important;font-weight:850!important;background:linear-gradient(90deg,#fff,#a9edbd);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px!important}
+footer h4{font-size:13px!important;letter-spacing:1.1px!important;text-transform:uppercase;color:#c9f5d5!important;margin-bottom:16px!important}
+footer p{max-width:360px;line-height:1.85!important;color:#b3c9c1!important}
+footer a{width:fit-content;max-width:100%;position:relative;padding:5px 0!important;margin:5px 0!important;color:#c1d4ce!important;text-decoration:none!important;transition:color .2s ease,transform .2s ease!important}
+footer a:hover{color:#fff!important;transform:translateX(4px)!important}
+.copyright{align-items:center!important;margin-top:34px!important;padding-top:20px!important;border-top:1px solid rgba(211,255,224,.16)!important;color:#a9c1b8!important;flex-wrap:wrap;font-size:12px!important;line-height:1.7}
+.sidoku-faq{margin:30px auto 0;max-width:1000px;padding:clamp(22px,4vw,38px);border:1px solid rgba(255,255,255,.18);border-radius:26px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.055));box-shadow:0 22px 55px rgba(0,0,0,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff}
+.faq-heading{text-align:center;max-width:680px;margin:0 auto 24px}.faq-kicker{display:inline-block;font-size:10px;letter-spacing:1.8px;font-weight:850;color:#a8efbc;padding:7px 11px;border:1px solid rgba(168,239,188,.28);border-radius:999px;background:rgba(28,130,67,.18)}
+.faq-heading h2{color:#fff!important;font-size:clamp(23px,3vw,32px)!important;margin:12px 0 8px!important;letter-spacing:-.6px}.faq-heading p{margin:0 auto 18px;color:#c3d9d0!important;line-height:1.7}
+.faq-search{display:flex;align-items:center;gap:10px;padding:0 15px;min-height:48px;border:1px solid rgba(220,255,230,.2);border-radius:15px;background:rgba(2,24,18,.28);color:#c4f3d0}.faq-search span{font-size:24px}.faq-search input{width:100%;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-size:13px}.faq-search input::placeholder{color:#b2c9bd}
+.faq-list{display:grid;gap:10px}.faq-item{overflow:hidden;border:1px solid rgba(224,255,231,.14);border-radius:15px;background:rgba(4,29,21,.24);transition:border-color .2s ease,background .2s ease}.faq-item[open]{border-color:rgba(155,239,178,.4);background:rgba(7,46,29,.45)}.faq-item summary{display:flex;align-items:center;gap:12px;cursor:pointer;list-style:none;padding:16px 18px;font-size:14px;font-weight:750;color:#f5fff7}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary::before{content:"?";flex:0 0 27px;width:27px;height:27px;display:grid;place-items:center;border-radius:9px;color:#d7ffe0;background:rgba(63,177,95,.22);border:1px solid rgba(156,235,174,.22);font-weight:900}.faq-item summary::after{content:"＋";margin-left:auto;color:#a7e9b8;font-size:18px;transition:transform .2s ease}.faq-item[open] summary::after{content:"−"}.faq-answer{padding:0 18px 17px 57px;color:#c5d9d0;font-size:13px;line-height:1.8}.faq-answer a{display:inline!important;color:#b8f4c7!important;text-decoration:underline!important}
+.faq-empty{margin:16px 0 0;text-align:center;color:#d4e7dc;font-size:13px}
+@media(max-width:900px){footer{padding-top:42px!important}.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.sidoku-faq{border-radius:21px}}
+@media(max-width:560px){footer{padding:36px 0 20px!important}.footer-grid{grid-template-columns:1fr!important;gap:20px!important}.footer-grid>div{padding-bottom:14px;border-bottom:1px solid rgba(211,255,224,.1)}.footer-grid>div:last-child{border-bottom:0}.copyright{display:grid!important;gap:5px!important}.sidoku-faq{padding:19px 14px!important;border-radius:19px}.faq-item summary{padding:14px 12px;font-size:13px}.faq-answer{padding:0 13px 15px 50px}.faq-search{min-height:45px}}
+</style>
+
+
+<style id="sidokuasn-faq-footer-link-polish">
+/* Logout: readable, refined in standby, hover, focus and active states. */
+nav .btn-logout-modern,
+nav .btn-logout-modern:link,
+nav .btn-logout-modern:visited{
+  color:#a51f2b!important;-webkit-text-fill-color:#a51f2b!important;
+  background:linear-gradient(135deg,#ffffff 0%,#fff6f6 52%,#ffe8ea 100%)!important;
+  border:1px solid rgba(176,35,48,.24)!important;
+  box-shadow:0 5px 16px rgba(112,20,33,.10),inset 0 1px 0 rgba(255,255,255,.95)!important;
+  text-shadow:none!important;text-decoration:none!important;opacity:1!important;
+}
+nav .btn-logout-modern:hover,
+nav .btn-logout-modern:focus-visible{
+  color:#fff!important;-webkit-text-fill-color:#fff!important;
+  background:linear-gradient(135deg,#a51f2b 0%,#d83d4d 100%)!important;
+  border-color:#b92d3a!important;box-shadow:0 9px 22px rgba(165,31,43,.28)!important;
+  outline:3px solid rgba(216,61,77,.16)!important;outline-offset:2px!important;
+}
+nav .btn-logout-modern:hover::before,
+nav .btn-logout-modern:focus-visible::before{
+  color:#a51f2b!important;background:#fff!important;
+}
+nav .btn-logout-modern:active{transform:translateY(0) scale(.98)!important}
+/* FAQ hidden until opened from the header or footer. */
+#faq.sidoku-faq{display:none!important}
+#faq.sidoku-faq.faq-visible{display:block!important;animation:sidokuFaqIn .28s ease both}
+@keyframes sidokuFaqIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#faq .faq-heading h2{color:#fff!important;-webkit-text-fill-color:#fff!important;text-shadow:0 2px 14px rgba(0,0,0,.2)!important}
+#faq .faq-heading p{color:#e0eee7!important}
+#faq .faq-item summary{color:#fff!important;line-height:1.55;text-shadow:none!important}
+#faq .faq-answer{color:#e0eee7!important}
+#faq .faq-search{background:#fff!important;border-color:#cbded2!important;color:#24653d!important}
+#faq .faq-search input{color:#173b29!important}
+#faq .faq-search input::placeholder{color:#647b6e!important;opacity:1!important}
+#faq .faq-item{background:rgba(2,22,15,.58)!important;border-color:rgba(219,255,229,.25)!important}
+#faq .faq-item[open]{background:rgba(4,42,25,.88)!important;border-color:#8be3a4!important}
+#faq .faq-empty{color:#effff3!important}
+footer a:focus-visible{outline:2px solid #a9edbd!important;outline-offset:4px!important;border-radius:5px}
+@media(prefers-reduced-motion:reduce){#faq.sidoku-faq.faq-visible{animation:none}}
+</style>
+
+
+<style id="sidokuasn-faq-popup-and-green-logout-v2">
+/* FAQ sebagai modal responsif, tersembunyi sampai tombol Bantuan dipilih. */
+#faq.sidoku-faq{display:none!important;position:fixed!important;inset:0!important;z-index:100020!important;width:100%!important;height:100vh!important;height:100dvh!important;max-width:none!important;margin:0!important;padding:clamp(14px,3vw,34px)!important;overflow-y:auto!important;overflow-x:hidden!important;box-sizing:border-box!important;border:0!important;border-radius:0!important;background:rgba(5,18,13,.78)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;color:#173b29!important;align-items:center!important;justify-content:center!important}
+#faq.sidoku-faq.faq-visible{display:flex!important;animation:sidokuFaqModalIn .24s ease both}
+#faq.sidoku-faq .faq-modal-card{position:relative;width:min(100%,920px);max-height:calc(100dvh - 36px);overflow:auto;box-sizing:border-box;padding:clamp(22px,3vw,38px);border:1px solid rgba(255,255,255,.8);border-radius:26px;background:linear-gradient(145deg,#ffffff 0%,#f3fbf5 58%,#e8f6ed 100%);box-shadow:0 30px 90px rgba(0,0,0,.34);color:#173b29}
+#faq .faq-close-popup{position:sticky;top:0;float:right;z-index:4;width:44px;height:44px;margin:-8px -8px 0 12px;border:1px solid #d7e8dc;border-radius:14px;background:#fff;color:#174b2d;font-size:27px;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:0 5px 16px rgba(14,70,37,.09);transition:transform .2s,background .2s,color .2s}
+#faq .faq-close-popup:hover,#faq .faq-close-popup:focus-visible{background:#14532d;color:#fff;transform:rotate(90deg);outline:3px solid rgba(20,83,45,.16);outline-offset:2px}
+#faq .faq-heading{max-width:760px;margin:0 auto 24px;text-align:center;clear:both}
+#faq .faq-kicker{color:#176534!important;background:#e5f7e9!important;border-color:#bce8c7!important}
+#faq .faq-heading h2{color:#123b25!important;-webkit-text-fill-color:#123b25!important;text-shadow:none!important;font-size:clamp(24px,3vw,34px)!important;line-height:1.2!important}
+#faq .faq-heading p{color:#4d6658!important;font-size:14px!important;line-height:1.7!important}
+#faq .faq-search{background:#fff!important;border:1px solid #c8ddce!important;color:#176534!important;box-shadow:0 5px 18px rgba(17,75,39,.05)}
+#faq .faq-search input{color:#173b29!important;font-size:14px!important;min-width:0}
+#faq .faq-search input::placeholder{color:#687d70!important;opacity:1!important}
+#faq .faq-list{display:grid;gap:10px}
+#faq .faq-item{background:#fff!important;border:1px solid #dce9df!important;border-radius:15px!important;box-shadow:0 4px 12px rgba(20,65,38,.035);color:#183e29!important}
+#faq .faq-item[open]{background:#f5fbf6!important;border-color:#8fcba0!important}
+#faq .faq-item summary{color:#183e29!important;-webkit-text-fill-color:#183e29!important;text-shadow:none!important;font-size:14px!important;line-height:1.55!important}
+#faq .faq-item summary::before{background:#e4f6e8!important;border-color:#c5e9ce!important;color:#176534!important}
+#faq .faq-item summary::after{color:#176534!important}
+#faq .faq-answer{color:#405b4a!important;font-size:13.5px!important;line-height:1.8!important}
+#faq .faq-empty{color:#405b4a!important}
+body.sidoku-faq-open{overflow:hidden!important}
+/* Logout: hijau tua pada hover dan fokus, termasuk ikon. */
+nav .btn-logout-modern:hover,nav .btn-logout-modern:focus-visible{color:#064b27!important;-webkit-text-fill-color:#064b27!important;background:linear-gradient(135deg,#e7f8ec 0%,#c9efd4 100%)!important;border-color:#3d9b5b!important;box-shadow:0 9px 22px rgba(13,91,43,.2)!important;outline:3px solid rgba(31,122,62,.15)!important;outline-offset:2px!important}
+nav .btn-logout-modern:hover img,nav .btn-logout-modern:focus-visible img{filter:brightness(0) saturate(100%) invert(20%) sepia(35%) saturate(1770%) hue-rotate(91deg) brightness(91%) contrast(105%)!important}
+nav .btn-logout-modern:hover::before,nav .btn-logout-modern:focus-visible::before{color:#064b27!important;background:#d9f3e1!important}
+@keyframes sidokuFaqModalIn{from{opacity:0}to{opacity:1}}
+@media(max-width:600px){#faq.sidoku-faq{padding:10px!important;align-items:flex-start!important}#faq.sidoku-faq .faq-modal-card{max-height:calc(100dvh - 20px);padding:20px 14px;border-radius:20px}#faq .faq-close-popup{width:40px;height:40px;margin:-4px -4px 8px 10px}#faq .faq-heading{margin-bottom:18px}#faq .faq-item summary{padding:13px 11px;font-size:13px!important}#faq .faq-answer{padding:0 12px 14px 48px;font-size:13px!important}}
+@media(prefers-reduced-motion:reduce){#faq.sidoku-faq.faq-visible{animation:none!important}}
 </style>
 
 </head>
@@ -1510,13 +1668,12 @@ body.service-open{
      <a href="#beranda">Beranda</a>
      <a href="#layanan">Layanan Kepegawaian</a>
      <a href="#informasi" class="nav-informasi">Informasi Teknis</a>
-     <a href="#bantuan">Bantuan</a>
+     <a href="#faq" onclick="event.preventDefault();showSidokuFaq()">Bantuan</a>
      <div class="user-session" id="userSession" aria-label="Pengguna yang sedang login">
       <span class="user-session-icon">👤</span>
       <span class="user-session-name" id="userSessionName">Pengguna</span>
      </div>
      <a href="#" class="btn-logout-modern" style="font-size: 16px; font-weight: bold;" onclick="logoutPortal()">Logout
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" stroke="currentColor" stroke-width="0.5" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
   <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
 </svg>
@@ -1604,7 +1761,7 @@ body.service-open{
        <div><strong id="viewerTitle">Layanan</strong><span id="viewerStatus">Memuat aplikasi...</span></div>
       </div>
       <div class="viewer-actions">
-       <button class="viewer-btn" type="button" aria-label="Tutup layanan" title="Tutup layanan" onclick="closeService()">✕</button>
+       <button class="viewer-btn" type="button" aria-label="Keluar dari layanan dan kembali ke portal" title="Keluar Layanan" onclick="closeService()">✕ <span class="exit-label">Keluar Layanan</span></button>
        </div>
      </div>
      <div class="iframe-wrap">
@@ -1679,8 +1836,8 @@ body.service-open{
       </style>
 
       <!-- Tombol Utama -->
-      <a href="https://bkpsdm-karangasemkab.github.io/Administrator-Kepegawaian/" target="_blank" class="btn-verifikator">
-        💼 Verifikator Kepegawaian
+      <a href="#layanan" onclick="event.preventDefault();openService('verifikator')" class="btn-verifikator" aria-label="Buka Verifikator Kepegawaian di dalam frame SIDOKUASN">
+        💼 Verifikator Kepegawaian <span aria-hidden="true">↗</span>
       </a>
 
       <!-- Teks Keterangan di Bawah Tombol -->
@@ -1689,6 +1846,17 @@ body.service-open{
       </p>
 
     </div>
+
+    <section class="sidoku-faq" id="faq" aria-labelledby="faqTitle">
+      <div class="faq-heading">
+        <span class="faq-kicker">PUSAT BANTUAN DIGITAL</span>
+        <h2 id="faqTitle">Pertanyaan yang Sering Diajukan</h2>
+        <p>Panduan ringkas untuk membantu penggunaan layanan SIDOKUASN.</p>
+        <label class="faq-search"><span aria-hidden="true">⌕</span><input id="faqSearch" type="search" placeholder="Cari pertanyaan, layanan, atau kendala..." aria-label="Cari FAQ"></label>
+      </div>
+      <div class="faq-list" id="faqList" aria-live="polite"></div>
+      <p class="faq-empty" id="faqEmpty" hidden>Belum ada pertanyaan yang sesuai. Coba kata kunci lain atau gunakan layanan Konsultasi Kepegawaian.</p>
+    </section>
   </div>
 </section>
 </main>
@@ -1698,8 +1866,17 @@ body.service-open{
     <div class="footer-grid">
      <div><h3>SIDOKUASN</h3><p>Portal layanan kepegawaian digital untuk mewujudkan pelayanan ASN yang cepat, mudah, transparan, dan terintegrasi.</p></div>
      <div><h4>Layanan</h4><a href="#layanan" onclick="openService('kenaikanPangkat')">Kenaikan Pangkat</a><a href="#layanan" onclick="openService('pensiun')">Pensiun</a><a href="#layanan" onclick="openService('slks')">SLKS</a><a href="#layanan" onclick="openService('gelarPMK')">Gelar & PMK</a></div>
-     <div><h4>Informasi</h4><a href="#informasi">Monitor KP</a><a href="#informasi">Update Data Admin ASN</a><a href="#informasi">Survei & Testimoni</a><a href="#informasi">Download</a></div>
-     <div><h4>Bantuan</h4><a href="#bantuan">Konsultasi</a><a href="#">FAQ</a><a href="#">Informasi Teknis Kepegawaian</a></div>
+     <div><h4>Informasi</h4>
+      <a href="#informasi" onclick="event.preventDefault();openService('infoKP')">Monitor KP</a>
+      <a href="#informasi" onclick="event.preventDefault();openService('infoPengumuman')">Update Data Admin ASN</a>
+      <a href="#informasi" onclick="event.preventDefault();openService('infoSurvei')">Survei & Testimoni</a>
+      <a href="#informasi" onclick="event.preventDefault();openService('infoFormulir')">Download</a>
+     </div>
+     <div><h4>Bantuan</h4>
+      <a href="#bantuan" onclick="event.preventDefault();openService('Konsultasi')">Konsultasi</a>
+      <a href="#faq" onclick="event.preventDefault();showSidokuFaq()">FAQ & Pusat Bantuan</a>
+      <a href="#informasi" onclick="event.preventDefault();openService('infoFormulir')">Informasi Teknis Kepegawaian</a>
+     </div>
     </div>
     <div class="copyright"><span>© 2026 SIDOKUASN • BKPSDM</span><span>Digital • Terintegrasi • Informatif</span></div>
    </div>
@@ -1729,6 +1906,11 @@ body.service-open{
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1H6ft_Z4plSQnSaIZ7HGY5BOKMlWmYnhlO2dCcymDfoWQ5limN82WcOFF88vq467f/exec";
 
 const services = {
+  verifikator:{
+    title:"Verifikator Kepegawaian",
+    icon:"💼",
+    url:"https://bkpsdm-karangasemkab.github.io/Administrator-Kepegawaian/"
+  },
   kenaikanPangkat:{
     title:"Kenaikan Pangkat",
     icon:"↗",
@@ -2347,6 +2529,60 @@ function submitForm(e){
     e.target.reset();
   }, 2000);
 }
+
+// Pusat Bantuan dibuka sebagai popup dari tombol Bantuan header/footer.
+function showSidokuFaq(){
+  const faq=document.getElementById('faq');
+  if(!faq)return;
+  if(!faq.querySelector('.faq-modal-card')){
+    const card=document.createElement('div');
+    card.className='faq-modal-card';
+    while(faq.firstChild) card.appendChild(faq.firstChild);
+    faq.appendChild(card);
+    const close=document.createElement('button');
+    close.type='button'; close.className='faq-close-popup'; close.setAttribute('aria-label','Tutup Pusat Bantuan'); close.innerHTML='&times;';
+    close.addEventListener('click',closeSidokuFaq);
+    card.insertBefore(close,card.firstChild);
+  }
+  faq.classList.add('faq-visible');
+  document.body.classList.add('sidoku-faq-open');
+  const search=document.getElementById('faqSearch');
+  if(search) window.setTimeout(()=>search.focus({preventScroll:true}),80);
+}
+function closeSidokuFaq(){
+  const faq=document.getElementById('faq');
+  if(faq)faq.classList.remove('faq-visible');
+  document.body.classList.remove('sidoku-faq-open');
+}
+document.addEventListener('keydown',function(event){if(event.key==='Escape'&&document.getElementById('faq')?.classList.contains('faq-visible'))closeSidokuFaq();});
+document.addEventListener('click',function(event){const faq=document.getElementById('faq');if(faq&&event.target===faq&&faq.classList.contains('faq-visible'))closeSidokuFaq();});
+
+// FAQ terstruktur dari kebutuhan umum penggunaan layanan SIDOKUASN.
+const sidokuFaqData = [
+ {q:"Bagaimana cara masuk ke portal SIDOKUASN?",a:"Masukkan NIP dan kata sandi pada halaman login, lalu pilih tombol Masuk. Pastikan data yang digunakan benar dan koneksi internet stabil. Jika masih gagal, hubungi pengelola/admin BKPSDM untuk pemeriksaan akun."},
+ {q:"Bagaimana membuka layanan kepegawaian?",a:"Buka menu Layanan Kepegawaian, pilih kartu layanan yang dibutuhkan, lalu tunggu sampai aplikasi tampil pada frame di dalam SIDOKUASN. Gunakan tombol Keluar Layanan di header untuk kembali ke portal."},
+ {q:"Layanan apa saja yang tersedia di SIDOKUASN?",a:"Portal menyediakan akses layanan seperti Kenaikan Pangkat, Pensiun, Pencantuman Gelar dan PMK, Satyalancana Karya Satya (SLKS), Konsultasi Kepegawaian, serta layanan verifikasi sesuai hak akses pengguna."},
+ {q:"Bagaimana mengecek status usulan kepegawaian?",a:"Buka bagian Informasi Teknis, kemudian pilih menu pemeriksaan status usulan yang sesuai, misalnya Kenaikan Pangkat, Pensiun, Gelar/PMK, atau SLKS. Siapkan identitas atau informasi usulan yang diminta oleh aplikasi."},
+ {q:"Apa yang harus dilakukan jika layanan tidak terbuka atau terus memuat?",a:"Tunggu beberapa saat dan periksa koneksi internet. Jika tetap bermasalah, tutup layanan melalui tombol Keluar Layanan, buka kembali, atau muat ulang portal. Sebagian aplikasi eksternal mungkin membatasi tampilan dalam frame; jika ada pesan pemblokiran dari penyedia aplikasi, hubungi admin untuk petunjuk akses."},
+ {q:"Bagaimana jika lupa kata sandi atau akun tidak bisa digunakan?",a:"Gunakan mekanisme pemulihan akun yang disediakan pada halaman login apabila tersedia. Jika belum dapat memulihkan akses, hubungi admin/pengelola SIDOKUASN melalui kanal resmi BKPSDM dengan menyampaikan kendala tanpa membagikan kata sandi."},
+ {q:"Bagaimana menggunakan Verifikator Kepegawaian?",a:"Pilih tombol Verifikator Kepegawaian pada bagian Bantuan. Portal akan mencoba menampilkan aplikasi pada frame SIDOKUASN. Layanan ini ditujukan bagi admin pengelola kepegawaian BKPSDM dan tetap mengikuti hak akses yang berlaku."},
+ {q:"Apakah data dan dokumen yang dimasukkan harus benar?",a:"Ya. Pastikan data kepegawaian dan dokumen yang dikirim sesuai dengan keadaan sebenarnya, lengkap, dan dapat dibaca. Periksa kembali informasi sebelum menyimpan atau mengirim usulan."},
+ {q:"Bagaimana menyampaikan pertanyaan atau kendala layanan?",a:"Buka layanan Konsultasi Kepegawaian melalui menu layanan. Jelaskan layanan yang digunakan, kendala yang dialami, dan waktu kejadian secara ringkas. Jangan menyertakan kata sandi atau informasi rahasia."},
+ {q:"Apakah semua layanan dapat diakses oleh setiap pengguna?",a:"Tidak selalu. Ketersediaan menu dan tindakan tertentu dapat bergantung pada peran, kewenangan, serta status akun. Untuk layanan khusus verifikator/admin, gunakan akun resmi yang telah diberikan kewenangan."},
+ {q:"Bagaimana kembali ke halaman utama setelah membuka layanan?",a:"Klik tombol Keluar Layanan pada header. Frame akan ditutup dan portal utama dapat digunakan kembali."}
+];
+function renderSidokuFaq(query=""){
+ const list=document.getElementById("faqList");
+ const empty=document.getElementById("faqEmpty");
+ if(!list)return;
+ const q=String(query).toLowerCase().trim();
+ const filtered=sidokuFaqData.filter(item=>(item.q+" "+item.a).toLowerCase().includes(q));
+ list.innerHTML=filtered.map((item,i)=>`<details class="faq-item"><summary>${item.q}</summary><div class="faq-answer">${item.a}</div></details>`).join("");
+ if(empty)empty.hidden=filtered.length>0;
+}
+const faqSearchInput=document.getElementById("faqSearch");
+if(faqSearchInput)faqSearchInput.addEventListener("input",()=>renderSidokuFaq(faqSearchInput.value));
+renderSidokuFaq();
 
 function filterServices(){
  const q=document.getElementById('search').value.toLowerCase().trim();
