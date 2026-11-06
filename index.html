@@ -2324,7 +2324,7 @@ function akhiriSesi(reason="expired"){
   const errorDiv=document.getElementById("pesan-error");
   const errorText=document.getElementById("error-text");
   if(reason==="expired"&&errorDiv&&errorText){
-    errorText.innerText="Sesi berakhir karena tidak ada aktivitas selama 20 menit. Silakan login kembali.";
+    errorText.innerText="Sesi berakhir karena tidak ada aktivitas selama 60 menit. Silakan login kembali.";
     errorDiv.style.display="flex";
   }
   const password=document.getElementById("password");
