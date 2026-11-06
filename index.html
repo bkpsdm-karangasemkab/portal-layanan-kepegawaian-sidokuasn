@@ -2216,11 +2216,11 @@ function updateUserDisplay() {
 
 /* =========================================================
    SESSION MANAGER — AUTO LOGOUT KARENA TIDAK ADA AKTIVITAS
-   Batas tidak aktif: 20 menit
+   Batas tidak aktif: 60 menit
    Peringatan: 1 menit sebelum sesi berakhir
    ========================================================= */
-const SIDOKU_SESSION_LIMIT = 20 * 60 * 1000;
-const SIDOKU_WARNING_LIMIT = 1 * 60 * 1000;
+const SIDOKU_SESSION_LIMIT = 60 * 60 * 1000;
+const SIDOKU_WARNING_LIMIT = 2 * 60 * 1000;
 const SIDOKU_ACTIVITY_KEY = "sidokuasn_last_activity";
 
 let sidokuActivityTimer = null;
